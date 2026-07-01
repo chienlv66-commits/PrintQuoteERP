@@ -114,17 +114,17 @@ const UVDTFCalculator = () => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
             <div className="form-group">
               <label className="form-label">Chiều Ngang (cm)</label>
-              <input type="number" className="form-input" value={width} onChange={e => setWidth(e.target.value)} placeholder="VD: 5" />
+              <input type="number" step="any" className="form-input" value={width} onChange={e => setWidth(e.target.value)} placeholder="VD: 5.77" />
             </div>
             <div className="form-group">
               <label className="form-label">Chiều Dọc (cm)</label>
-              <input type="number" className="form-input" value={height} onChange={e => setHeight(e.target.value)} placeholder="VD: 5.77" />
+              <input type="number" step="any" className="form-input" value={height} onChange={e => setHeight(e.target.value)} placeholder="VD: 5.77" />
             </div>
           </div>
 
           <div className="form-group" style={{ marginBottom: '1rem' }}>
             <label className="form-label">Số Lượng (tem)</label>
-            <input type="number" className="form-input" value={quantity} onChange={e => setQuantity(e.target.value)} placeholder="VD: 44" />
+            <input type="number" step="any" className="form-input" value={quantity} onChange={e => setQuantity(e.target.value)} placeholder="VD: 44" />
           </div>
 
           {isAdmin && (

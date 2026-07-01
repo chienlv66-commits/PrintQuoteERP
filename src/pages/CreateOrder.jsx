@@ -110,7 +110,7 @@ export default function CreateOrder() {
         }
     };
 
-    const totalOrderValue = products.reduce((sum, p) => sum + (p.quantity * p.unitPrice), 0);
+    const totalOrderValue = products.reduce((sum, p) => sum + ((parseFloat(p.quantity) || 0) * (parseFloat(p.unitPrice) || 0)), 0);
     const remaining = totalOrderValue - deposit;
 
     const generateZaloText = (orderId, customer, prods, total, dep, rem) => {
@@ -120,9 +120,9 @@ export default function CreateOrder() {
             text += `SẢN PHẨM ${index + 1}: ${p.name} [${p.size}]\n`;
             text += `- Chất liệu: ${p.material}\n`;
             text += `- Kích thước: ${p.size}\n`;
-            text += `- Số lượng: ${p.quantity.toLocaleString()}\n`;
-            text += `- Đơn giá: ${p.unitPrice.toLocaleString()} đ\n`;
-            text += `- Thành tiền: ${(p.quantity * p.unitPrice).toLocaleString()} đ\n`;
+            text += `- Số lượng: ${Number(p.quantity).toLocaleString('vi-VN')}\n`;
+            text += `- Đơn giá: ${Number(p.unitPrice).toLocaleString('vi-VN')} đ\n`;
+            text += `- Thành tiền: ${(Number(p.quantity) * Number(p.unitPrice)).toLocaleString('vi-VN')} đ\n`;
             if (p.specs || p.processing) {
                 text += `- Quy cách/Gia công: ${p.specs} ${p.processing}\n`;
             }
@@ -138,7 +138,7 @@ export default function CreateOrder() {
     };
 
     const handleSaveOrder = async () => {
-        if (!customerInfo.name || products.some(p => !p.name || !p.quantity || p.unitPrice === undefined)) {
+        if (!customerInfo.name || products.some(p => !p.name || !Number(p.quantity) || p.unitPrice === undefined || p.unitPrice === '')) {
             setError('Vui lòng điền đầy đủ Tên khách hàng và thông tin sản phẩm (có đánh dấu *)');
             return;
         }
@@ -154,7 +154,7 @@ export default function CreateOrder() {
             const joinedNames = products.map(p => p.name).join(' + ');
             const joinedMaterials = products.map(p => p.material).join(' + ');
             const joinedSizes = products.map(p => p.size).join(' + ');
-            const totalQty = products.reduce((sum, p) => sum + p.quantity, 0);
+            const totalQty = products.reduce((sum, p) => sum + (parseFloat(p.quantity) || 0), 0);
             const joinedSpecs = products.map(p => p.specs).filter(Boolean).join(' | ');
             const joinedProc = products.map(p => p.processing).filter(Boolean).join(' | ');
             const joinedNotes = products.map(p => p.notes).filter(Boolean).join(' | ');
@@ -312,16 +312,16 @@ export default function CreateOrder() {
                             
                             <div>
                                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Số lượng *</label>
-                                <input type="number" min="1" value={p.quantity} onChange={(e) => handleProductChange(p.id, 'quantity', parseInt(e.target.value)||0)} className="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:border-blue-500 font-bold text-blue-700" />
+                                <input type="number" step="any" min="0" value={p.quantity} onChange={(e) => handleProductChange(p.id, 'quantity', e.target.value)} className="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:border-blue-500 font-bold text-blue-700" />
                             </div>
                             <div>
                                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Đơn giá (đ) *</label>
-                                <input type="number" min="0" value={p.unitPrice} onChange={(e) => handleProductChange(p.id, 'unitPrice', parseInt(e.target.value)||0)} className="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:border-blue-500 font-bold text-emerald-600" />
+                                <input type="number" step="any" min="0" value={p.unitPrice} onChange={(e) => handleProductChange(p.id, 'unitPrice', e.target.value)} className="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:border-blue-500 font-bold text-emerald-600" />
                             </div>
                             <div>
                                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Thành tiền (đ)</label>
                                 <div className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-bold text-slate-800 text-right">
-                                    {(p.quantity * p.unitPrice).toLocaleString()}
+                                    {((parseFloat(p.quantity) || 0) * (parseFloat(p.unitPrice) || 0)).toLocaleString('vi-VN')}
                                 </div>
                             </div>
                         </div>
