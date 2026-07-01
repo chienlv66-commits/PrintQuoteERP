@@ -1,0 +1,20 @@
+{
+  "name": "printos-pricing-engine-starter",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/demo.ts",
+    "build": "tsc -p tsconfig.json",
+    "test:demo": "tsx src/demo.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.10",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}

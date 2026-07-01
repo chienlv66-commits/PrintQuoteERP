@@ -1,0 +1,808 @@
+{
+  "materials": [
+    {
+      "id": "DECAL",
+      "name": "Decal",
+      "groupName": null,
+      "gsm": 1,
+      "basePrice": 13000,
+      "paperName": "Decal",
+      "unitPriceM2": 1.2796875,
+      "platePrice": 60000,
+      "sheetWidthCm": 32,
+      "sheetHeightCm": 43,
+      "sheetSizeText": "32x43",
+      "sheetPrice": 1677,
+      "sourceRow": 4
+    },
+    {
+      "id": "I300",
+      "name": "I300",
+      "groupName": "Giấy C",
+      "gsm": 300,
+      "basePrice": 17,
+      "paperName": "Ivory 300",
+      "unitPriceM2": 0.5859000000000001,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 3119.2200000000003,
+      "sourceRow": 5
+    },
+    {
+      "id": "C300_TH_NG",
+      "name": "C300 thường",
+      "groupName": null,
+      "gsm": 300,
+      "basePrice": 21.3,
+      "paperName": "C300",
+      "unitPriceM2": 0.67095,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 3572.01,
+      "sourceRow": 6
+    },
+    {
+      "id": "C300_PINDO",
+      "name": "C300 pindo",
+      "groupName": null,
+      "gsm": 300,
+      "basePrice": 25.7,
+      "paperName": "C300 pindo",
+      "unitPriceM2": 0.8095500000000001,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 4309.89,
+      "sourceRow": 7
+    },
+    {
+      "id": "C100",
+      "name": "C100",
+      "groupName": null,
+      "gsm": 100,
+      "basePrice": 21.3,
+      "paperName": "C100",
+      "unitPriceM2": 0.22365000000000004,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 1190.67,
+      "sourceRow": 8
+    },
+    {
+      "id": "C120",
+      "name": "C120",
+      "groupName": null,
+      "gsm": 120,
+      "basePrice": 21,
+      "paperName": "C120",
+      "unitPriceM2": 0.26838,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 1428.804,
+      "sourceRow": 9
+    },
+    {
+      "id": "C150",
+      "name": "C150",
+      "groupName": null,
+      "gsm": 150,
+      "basePrice": 21,
+      "paperName": "C150",
+      "unitPriceM2": 0.335475,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 1786.005,
+      "sourceRow": 10
+    },
+    {
+      "id": "C200",
+      "name": "C200",
+      "groupName": null,
+      "gsm": 200,
+      "basePrice": 21,
+      "paperName": "C200",
+      "unitPriceM2": 0.4473000000000001,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 2381.34,
+      "sourceRow": 11
+    },
+    {
+      "id": "C250",
+      "name": "C250",
+      "groupName": null,
+      "gsm": 250,
+      "basePrice": 21,
+      "paperName": "C250",
+      "unitPriceM2": 0.5591250000000001,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 2976.675,
+      "sourceRow": 12
+    },
+    {
+      "id": "C350_PINDO",
+      "name": "C350 pindo",
+      "groupName": null,
+      "gsm": 350,
+      "basePrice": 25.7,
+      "paperName": "C350 pindo",
+      "unitPriceM2": 0.944475,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 5028.205,
+      "sourceRow": 13
+    },
+    {
+      "id": "I210",
+      "name": "I210",
+      "groupName": "Giấy I",
+      "gsm": 210,
+      "basePrice": 18,
+      "paperName": "Ivory 250",
+      "unitPriceM2": 0.5145000000000001,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 2739.1000000000004,
+      "sourceRow": 14
+    },
+    {
+      "id": "I250",
+      "name": "I250",
+      "groupName": null,
+      "gsm": 250,
+      "basePrice": 17,
+      "paperName": "Ivory 250",
+      "unitPriceM2": 0.48825000000000013,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 2599.3500000000004,
+      "sourceRow": 15
+    },
+    {
+      "id": "I350",
+      "name": "I350",
+      "groupName": null,
+      "gsm": 350,
+      "basePrice": 17,
+      "paperName": "Ivory 350",
+      "unitPriceM2": 0.6835500000000002,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 3639.0900000000006,
+      "sourceRow": 16
+    },
+    {
+      "id": "I400",
+      "name": "I400",
+      "groupName": null,
+      "gsm": 400,
+      "basePrice": 17,
+      "paperName": "Ivory 400",
+      "unitPriceM2": 0.7812000000000002,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 4158.960000000001,
+      "sourceRow": 17
+    },
+    {
+      "id": "KRAFT_TR_NG_NH_T",
+      "name": "Kraft trắng Nhật",
+      "groupName": "Thường làm thẻ bài, hộp",
+      "gsm": 120,
+      "basePrice": 29.7,
+      "paperName": "Kraft trắng Nhật",
+      "unitPriceM2": 0.37422,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 1992.276,
+      "sourceRow": 18
+    },
+    {
+      "id": "KRAFT_VI_T_TR_170",
+      "name": "Kraft Việt Trì 170",
+      "groupName": null,
+      "gsm": 170,
+      "basePrice": 22,
+      "paperName": "Kraft Việt Trì 170",
+      "unitPriceM2": 0.36465,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 2090.66,
+      "sourceRow": 19
+    },
+    {
+      "id": "KRAFT_VI_T_TR_210",
+      "name": "Kraft Việt Trì 210",
+      "groupName": null,
+      "gsm": 210,
+      "basePrice": 22,
+      "paperName": "Kraft Việt Trì 210",
+      "unitPriceM2": 0.45045,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 2582.58,
+      "sourceRow": 20
+    },
+    {
+      "id": "KRAFT_VI_T_TR_250",
+      "name": "Kraft Việt Trì 250",
+      "groupName": null,
+      "gsm": 250,
+      "basePrice": 22,
+      "paperName": "Kraft Việt Trì 250",
+      "unitPriceM2": 0.53625,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 3074.5,
+      "sourceRow": 21
+    },
+    {
+      "id": "KRAFT_VI_T_TR_300",
+      "name": "Kraft Việt Trì 300",
+      "groupName": null,
+      "gsm": 300,
+      "basePrice": 22,
+      "paperName": "Kraft Việt Trì 300",
+      "unitPriceM2": 0.6547238372093024,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 87.5,
+      "sheetSizeText": "65*87,5",
+      "sheetPrice": 3753.75,
+      "sourceRow": 22
+    },
+    {
+      "id": "OPP_100",
+      "name": "OPP 100",
+      "groupName": null,
+      "gsm": 100,
+      "basePrice": 24.7,
+      "paperName": "OPP 100",
+      "unitPriceM2": 0.24681574239713777,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 1314,
+      "sourceRow": 23
+    },
+    {
+      "id": "OPP_120",
+      "name": "OPP 120",
+      "groupName": null,
+      "gsm": 100,
+      "basePrice": 24.7,
+      "paperName": "OPP 120",
+      "unitPriceM2": 0.296216457960644,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 1577,
+      "sourceRow": 24
+    },
+    {
+      "id": "OPP_140",
+      "name": "OPP 140",
+      "groupName": null,
+      "gsm": 100,
+      "basePrice": 24.7,
+      "paperName": "OPP 140",
+      "unitPriceM2": 0.3456171735241503,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 1840,
+      "sourceRow": 25
+    },
+    {
+      "id": "OPP_200",
+      "name": "OPP 200",
+      "groupName": null,
+      "gsm": 200,
+      "basePrice": 27.8,
+      "paperName": "OPP 200",
+      "unitPriceM2": 0.5515552325581395,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 3162.25,
+      "sourceRow": 26
+    },
+    {
+      "id": "OPP_250",
+      "name": "OPP 250",
+      "groupName": null,
+      "gsm": 250,
+      "basePrice": 27.8,
+      "paperName": "OPP 250",
+      "unitPriceM2": 0.6894440406976745,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65*86",
+      "sheetPrice": 3952.8125,
+      "sourceRow": 27
+    },
+    {
+      "id": "DLEX250",
+      "name": "Dlex250",
+      "groupName": "Thường làm hộp",
+      "gsm": 250,
+      "basePrice": 16.6,
+      "paperName": "Dlex250",
+      "unitPriceM2": 0.43575000000000014,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 2319.8500000000004,
+      "sourceRow": 28
+    },
+    {
+      "id": "DLEX300",
+      "name": "Dlex300",
+      "groupName": null,
+      "gsm": 300,
+      "basePrice": 15.8,
+      "paperName": "Dlex300",
+      "unitPriceM2": 0.4977,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 2649.66,
+      "sourceRow": 29
+    },
+    {
+      "id": "DLEX350",
+      "name": "Dlex350",
+      "groupName": null,
+      "gsm": 350,
+      "basePrice": 15.4,
+      "paperName": "Dlex350",
+      "unitPriceM2": 0.5659500000000001,
+      "platePrice": 60000,
+      "sheetWidthCm": 65,
+      "sheetHeightCm": 86,
+      "sheetSizeText": "65x86",
+      "sheetPrice": 3013.01,
+      "sourceRow": 30
+    },
+    {
+      "id": "GI_Y_M_THU_T_THAM_KH_O",
+      "name": "Giấy mỹ thuật tham khảo",
+      "groupName": null,
+      "gsm": null,
+      "basePrice": null,
+      "paperName": "Giấy mỹ thuật tham khảo",
+      "unitPriceM2": 1.9509929160376265,
+      "platePrice": 60000,
+      "sheetWidthCm": 79,
+      "sheetHeightCm": 109,
+      "sheetSizeText": "79*109",
+      "sheetPrice": 16000,
+      "sourceRow": 31
+    },
+    {
+      "id": "MICA",
+      "name": "Mica",
+      "groupName": null,
+      "gsm": null,
+      "basePrice": null,
+      "paperName": "Mica",
+      "unitPriceM2": 3.5185185185185186,
+      "platePrice": 70000,
+      "sheetWidthCm": 27,
+      "sheetHeightCm": 42,
+      "sheetSizeText": "27x42",
+      "sheetPrice": 3800,
+      "sourceRow": 32
+    },
+    {
+      "id": "C300",
+      "name": "C300",
+      "gsm": 300,
+      "basePrice": 21
+    },
+    {
+      "id": "C300PINDO",
+      "name": "C300pindo",
+      "gsm": 300,
+      "basePrice": 23.999999999999996
+    },
+    {
+      "id": "ỐP_100",
+      "name": "ốp 100",
+      "gsm": 100,
+      "basePrice": 26
+    },
+    {
+      "id": "ỐP_150",
+      "name": "ốp 150",
+      "gsm": 150,
+      "basePrice": 26
+    },
+    {
+      "id": "ỐP_200",
+      "name": "ốp 200",
+      "gsm": 200,
+      "basePrice": 28
+    },
+    {
+      "id": "ỐP_250",
+      "name": "ốp 250",
+      "gsm": 250,
+      "basePrice": 28
+    },
+    {
+      "id": "C350PINDO",
+      "name": "C350pindo",
+      "gsm": 350,
+      "basePrice": 25
+    },
+    {
+      "id": "DUPLEX_230",
+      "name": "Duplex 230",
+      "gsm": 230,
+      "basePrice": 18
+    },
+    {
+      "id": "DUPLEX_250",
+      "name": "Duplex 250",
+      "gsm": 250,
+      "basePrice": 18
+    },
+    {
+      "id": "DUPLEX_300",
+      "name": "Duplex 300",
+      "gsm": 300,
+      "basePrice": 18
+    },
+    {
+      "id": "DUPLEX_350",
+      "name": "Duplex 350",
+      "gsm": 350,
+      "basePrice": 18
+    },
+    {
+      "id": "DUPLEX_400",
+      "name": "Duplex 400",
+      "gsm": 400,
+      "basePrice": 18
+    },
+    {
+      "id": "KRAFT_NHẬT_120",
+      "name": "Kraft nhật 120",
+      "gsm": 120,
+      "basePrice": 29.5
+    },
+    {
+      "id": "KHÔNG_CHỌN",
+      "name": "không chọn",
+      "gsm": 0,
+      "basePrice": 0
+    },
+    {
+      "id": "SÓNG_E_3_LỚP_2_MẶT_NÂU",
+      "name": "Sóng e 3 lớp 2 mặt nâu",
+      "gsm": 0,
+      "basePrice": 9500
+    },
+    {
+      "id": "SÓNG_E_3_LỚP_1_NÂU_1_TRẮNG",
+      "name": "Sóng e 3 lớp 1 nâu 1 trắng",
+      "gsm": 0,
+      "basePrice": 10000
+    },
+    {
+      "id": "SÓNG_E_3_LỚP_2_MẶT_TRẮNG",
+      "name": "Sóng e 3 lớp 2 mặt trắng",
+      "gsm": 0,
+      "basePrice": 10500
+    },
+    {
+      "id": "SÓNG_E_5_LỚP_2_MẶT_NÂU",
+      "name": "sóng e 5 lớp 2 mặt nâu",
+      "gsm": 0,
+      "basePrice": 13500
+    }
+  ],
+  "quantityTiers": [
+    {
+      "module": "quick_print_page",
+      "label": "<100",
+      "minQty": 0,
+      "maxQty": 99.999,
+      "value": 2200,
+      "unit": "vnd/page"
+    },
+    {
+      "module": "quick_print_page",
+      "label": "100-200",
+      "minQty": 100,
+      "maxQty": 200,
+      "value": 1700,
+      "unit": "vnd/page"
+    },
+    {
+      "module": "quick_print_page",
+      "label": "200-300",
+      "minQty": 200,
+      "maxQty": 300,
+      "value": 1300,
+      "unit": "vnd/page"
+    },
+    {
+      "module": "quick_print_page",
+      "label": "300-400",
+      "minQty": 300,
+      "maxQty": 400,
+      "value": 1200,
+      "unit": "vnd/page"
+    },
+    {
+      "module": "quick_print_page",
+      "label": "400-500",
+      "minQty": 400,
+      "maxQty": 500,
+      "value": 1100,
+      "unit": "vnd/page"
+    },
+    {
+      "module": "quick_print_page",
+      "label": "500-1000",
+      "minQty": 500,
+      "maxQty": 1000,
+      "value": 1000,
+      "unit": "vnd/page"
+    },
+    {
+      "module": "uv_label",
+      "label": "1-2",
+      "value": 80000,
+      "unit": "vnd/meter",
+      "sourceRow": 40
+    },
+    {
+      "module": "uv_label",
+      "label": "3-5",
+      "value": 60000,
+      "unit": "vnd/meter",
+      "sourceRow": 41
+    },
+    {
+      "module": "uv_label",
+      "label": "6-9",
+      "value": 45000,
+      "unit": "vnd/meter",
+      "sourceRow": 42
+    },
+    {
+      "module": "uv_label",
+      "label": "10-20",
+      "value": 40000,
+      "unit": "vnd/meter",
+      "sourceRow": 43
+    },
+    {
+      "module": "uv_label",
+      "label": "21-29",
+      "value": 38000,
+      "unit": "vnd/meter",
+      "sourceRow": 44
+    },
+    {
+      "module": "uv_label",
+      "label": "30-50",
+      "value": 35000,
+      "unit": "vnd/meter",
+      "sourceRow": 45
+    },
+    {
+      "module": "uv_label",
+      "label": "51-60",
+      "value": 33000,
+      "unit": "vnd/meter",
+      "sourceRow": 46
+    },
+    {
+      "module": "uv_label",
+      "label": "60-100",
+      "value": 30000,
+      "unit": "vnd/meter",
+      "sourceRow": 47
+    },
+    {
+      "module": "uv_label",
+      "label": ">100",
+      "value": 28000,
+      "unit": "vnd/meter",
+      "sourceRow": 48
+    },
+    {
+      "module": "void",
+      "label": "<10.000",
+      "value": 1.1,
+      "unit": "factor",
+      "sourceRow": 50
+    },
+    {
+      "module": "void",
+      "label": "10k - 19k",
+      "value": 1.05,
+      "unit": "factor",
+      "sourceRow": 51
+    },
+    {
+      "module": "void",
+      "label": "20k-49k",
+      "value": 1,
+      "unit": "factor",
+      "sourceRow": 52
+    },
+    {
+      "module": "void",
+      "label": "50k-99k",
+      "value": 0.95,
+      "unit": "factor",
+      "sourceRow": 53
+    },
+    {
+      "module": "void",
+      "label": "100k-199k",
+      "value": 0.9,
+      "unit": "factor",
+      "sourceRow": 54
+    },
+    {
+      "module": "void",
+      "label": "200k-499k",
+      "value": 0.85,
+      "unit": "factor",
+      "sourceRow": 55
+    },
+    {
+      "module": "void",
+      "label": ">500k",
+      "value": 0.8,
+      "unit": "factor",
+      "sourceRow": 56
+    },
+    {
+      "module": "offset_margin_factor",
+      "label": "<=3.000",
+      "value": 0.3,
+      "unit": "factor",
+      "sourceRow": 33
+    },
+    {
+      "module": "leather_factor",
+      "label": "<3.000",
+      "value": 0.7,
+      "unit": "factor",
+      "sourceRow": 33
+    },
+    {
+      "module": "offset_margin_factor",
+      "label": "4.000 - 10.000",
+      "value": 0.35,
+      "unit": "factor",
+      "sourceRow": 34
+    },
+    {
+      "module": "leather_factor",
+      "label": "4.000 - 10.000",
+      "value": 0.72,
+      "unit": "factor",
+      "sourceRow": 34
+    },
+    {
+      "module": "offset_margin_factor",
+      "label": "12.000 - 50.000",
+      "value": 0.32,
+      "unit": "factor",
+      "sourceRow": 35
+    },
+    {
+      "module": "leather_factor",
+      "label": "12.000 - 50.000",
+      "value": 0.75,
+      "unit": "factor",
+      "sourceRow": 35
+    },
+    {
+      "module": "offset_margin_factor",
+      "label": "55.000 - 100.000",
+      "value": 0.27,
+      "unit": "factor",
+      "sourceRow": 36
+    },
+    {
+      "module": "leather_factor",
+      "label": "55.000 - 100.000",
+      "value": 0.8,
+      "unit": "factor",
+      "sourceRow": 36
+    },
+    {
+      "module": "offset_margin_factor",
+      "label": "> 110.000",
+      "value": 0.24,
+      "unit": "factor",
+      "sourceRow": 37
+    },
+    {
+      "module": "leather_factor",
+      "label": "> 110.000",
+      "value": 0.85,
+      "unit": "factor",
+      "sourceRow": 37
+    },
+    {
+      "module": "offset_margin_factor",
+      "label": ">100",
+      "value": 28000,
+      "unit": "factor",
+      "sourceRow": 48
+    }
+  ],
+  "processPrices": {
+    "margin_divisor": 0.65,
+    "quick_paper_sheet_width": 32.5,
+    "quick_paper_sheet_height": 43,
+    "paper_calc_width": 31.5,
+    "paper_calc_height": 42,
+    "paper_waste_multiplier": 1.1,
+    "paper_waste_sheets": 10,
+    "lamination_price_per_page": 500,
+    "cut_price_per_item": 20,
+    "cut_min": 50000,
+    "drill_price_per_item": 50,
+    "drill_min": 50000,
+    "mold_fee": 500000,
+    "mold_diecut_per_sheet": 400,
+    "mold_diecut_min": 250000,
+    "laser_diecut_per_sheet": 3200,
+    "laser_diecut_min": 100000,
+    "mount_score_fixed": 150000,
+    "mounting_rate": 0.2,
+    "mounting_min": 200000
+  }
+}

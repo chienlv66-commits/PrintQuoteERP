@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-sidebar-bg: #0f172a;
+  --color-sidebar-active: #1e40af;
+  --font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f1f5f9;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Transition animations */
+.page-enter {
+  animation: fadeSlideIn 0.2s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom number input arrows hide */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Table row hover */
+.tbl-row:hover { background-color: #f8fafc; }
+
+/* Status badge colors */
+.status-new         { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+.status-confirmed   { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.status-production  { background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+.status-delivering  { background: #faf5ff; color: #9333ea; border: 1px solid #e9d5ff; }
+.status-done        { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+.status-cancelled   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+/* Print layout */
+@media print {
+  .no-print { display: none !important; }
+}

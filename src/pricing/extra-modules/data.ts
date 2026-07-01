@@ -1,0 +1,103 @@
+export const EXTRA_PRICING_DATA = {
+  void: {
+    materialCostPerMeter: 14200,
+    wasteMeters: 25,
+    basePrintUnit: 110,
+    minPrintCost: 800000,
+    marginDivisor: 0.6,
+    moldCost: 400000,
+    secondColorFee: 500000,
+    laminateUnit: 500,
+    quantityFactors: [
+      { label: '<10.000', factor: 1.1 },
+      { label: '10k - 19k', factor: 1.05 },
+      { label: '20k-49k', factor: 1 },
+      { label: '50k-99k', factor: 0.95 },
+      { label: '100k-199k', factor: 0.9 },
+      { label: '200k-499k', factor: 0.85 },
+      { label: '>500k', factor: 0.8 },
+    ],
+  },
+  mica: {
+    sheetWidthCm: 26,
+    sheetHeightCm: 40,
+    rawPaperWidthCm: 27,
+    rawPaperHeightCm: 42,
+    wasteSheets: 100,
+    printPerColorPerSide: 920000,
+    cutMin: 250000,
+    cutBatchQty: 100,
+    cutBatchFee: 50000,
+    processingMin: 200000,
+    marginDivisor: 0.6,
+  },
+  macDa: {
+    moldMinQty: 3000,
+    moldCost: 600000,
+    largeAreaThreshold: 12,
+    largeAreaUnit: 33,
+    smallAreaBase: 300,
+    smallMoldShare: 0.5,
+    quantityFactors: [
+      { label: '<3.000', factor: 0.7 },
+      { label: '4.000 - 10.000', factor: 0.72 },
+      { label: '12.000 - 50.000', factor: 0.75 },
+      { label: '55.000 - 100.000', factor: 0.8 },
+      { label: '> 110.000', factor: 0.85 },
+    ],
+  },
+  temPet: {
+    meterTiers: [
+      { min: -1, max: 9.999999, rollPricePerMeter: 140000 },
+      { min: 9.999999, max: 59.999999, rollPricePerMeter: 115000 },
+      { min: 59.999999, max: 199.999999, rollPricePerMeter: 95000 },
+      { min: 199.999999, max: Number.POSITIVE_INFINITY, rollPricePerMeter: 85000 },
+    ],
+    cutUnitExtra: 100,
+  },
+  temUvDtf: {
+    // Note: min is exclusive, max is inclusive in our findMeterTier logic (> min && <= max).
+    // So 0 to 3 => min: -1, max: 3.
+    ali: [
+      { min: -1, max: 3, price: 180000 },
+      { min: 3, max: 10, price: 150000 },
+      { min: 10, max: 50, price: 145000 },
+      { min: 50, max: 100, price: 140000 },
+      { min: 100, max: 300, price: 135000 },
+      { min: 300, max: Number.POSITIVE_INFINITY, price: 130000 },
+    ],
+    chienLuu: [
+      { min: -1, max: 3, price: 180000 },
+      { min: 3, max: 10, price: 165000 },
+      { min: 10, max: 50, price: 155000 },
+      { min: 50, max: 100, price: 145000 },
+      { min: 100, max: 300, price: 140000 },
+      { min: 300, max: Number.POSITIVE_INFINITY, price: 135000 },
+    ],
+    retail: [
+      { min: -1, max: 3, price: 280000 },
+      { min: 3, max: 10, price: 250000 },
+      { min: 10, max: 50, price: 220000 },
+      { min: 50, max: 100, price: 210000 },
+      { min: 100, max: 300, price: 200000 },
+      { min: 300, max: Number.POSITIVE_INFINITY, price: 180000 },
+    ]
+  },
+  temCaoThanh1Mau: {
+    lowTierMaxMeters: 10,
+    lowTierRollPrice: 260000,
+    highTierRollFactor: 0.8,
+    lowTierCutPrice: 160000,
+    highTierCutPrice: 150000,
+    cutExtraUnit: 100,
+  },
+  dayLogo: {
+    twoSideExtra: 50,
+    tiers: [5000, 10000, 20000, 30000, 40000, 50000, 100000],
+    prices: {
+      du: [760, 410, 300, 290, 280, 260, 220],
+      sap: [null, 705, 550, 405, 395, 375, 305],
+      ruy_bang: [null, 705, 550, 405, 395, 375, 335],
+    } as const,
+  },
+};

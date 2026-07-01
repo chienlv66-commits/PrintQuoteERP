@@ -1,0 +1,51 @@
+{
+  "void": {
+    "laminateInput": "0=no laminate, 1=laminate",
+    "materialCostPerMeter": 14200,
+    "wasteMeters": 25,
+    "basePrintUnit": 110,
+    "minPrintCost": 800000,
+    "marginDivisor": 0.6,
+    "moldCost": 400000,
+    "secondColorFee": 500000,
+    "laminateUnit": 500
+  },
+  "temPet": {
+    "meterTiers": [
+      {
+        "min": 0,
+        "max": 9.999999,
+        "rollPricePerMeter": 140000
+      },
+      {
+        "min": 10,
+        "max": 59.999999,
+        "rollPricePerMeter": 115000
+      },
+      {
+        "min": 60,
+        "max": 199.999999,
+        "rollPricePerMeter": 95000
+      },
+      {
+        "min": 200,
+        "max": "Infinity",
+        "rollPricePerMeter": 85000
+      }
+    ],
+    "cutUnitExtra": 100
+  },
+  "dayLogo": {
+    "billingMode": "excel-tier-quantity",
+    "twoSideExtra": 50,
+    "tiers": [
+      5000,
+      10000,
+      20000,
+      30000,
+      40000,
+      50000,
+      100000
+    ]
+  }
+}
