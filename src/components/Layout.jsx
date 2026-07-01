@@ -59,7 +59,7 @@ export default function Layout() {
     if (!currentUser) return null;
 
     const sidebarW = collapsed ? 'w-16' : 'w-64';
-    const mainML = collapsed ? 'ml-16' : 'ml-64';
+    const mainML = collapsed ? 'md:ml-16' : 'md:ml-64';
 
     const NavItem = ({ item, mobile = false }) => {
         const hasAccess = item.roles.includes(currentUser.role);
@@ -181,7 +181,7 @@ export default function Layout() {
             )}
 
             {/* Main Content */}
-            <div className={`flex-1 ${mainML} transition-all duration-200 ease-in-out min-w-0`}>
+            <div className={`flex-1 ml-0 ${mainML} transition-all duration-200 ease-in-out min-w-0 w-full`}>
                 {/* Top bar */}
                 <header className="bg-white border-b border-slate-200 sticky top-0 z-20 px-4 md:px-6 py-3 flex items-center justify-between">
                     <button onClick={() => setMobileOpen(true)} className="md:hidden text-slate-500 hover:text-slate-900 p-1">

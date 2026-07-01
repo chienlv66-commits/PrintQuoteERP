@@ -21,17 +21,24 @@ export default function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        let role = 'sale';
-        if (email.includes('admin')) role = 'admin';
-        else if (email.includes('production')) role = 'production';
-        else if (email.includes('accountant')) role = 'accountant';
+        
+        // Cần đúng mật khẩu là 123456
+        if (pass !== '123456') {
+            alert('Mật khẩu không đúng! Vui lòng thử lại.');
+            return;
+        }
+
+        let role = '';
+        if (email === 'admin@print.vn') role = 'admin';
+        else if (email === 'production@print.vn') role = 'production';
+        else if (email === 'accountant@print.vn') role = 'accountant';
+        else if (email === 'sale@print.vn') role = 'sale';
+        else {
+            alert('Email không tồn tại trong hệ thống!');
+            return;
+        }
         
         login(role, name);
-        navigate('/');
-    };
-
-    const quickLogin = (role) => {
-        login(role);
         navigate('/');
     };
 
@@ -112,22 +119,6 @@ export default function Login() {
                             </button>
                         </form>
 
-                        <div className="border-t border-slate-100 pt-5">
-                            <p className="text-xs text-slate-400 text-center mb-3">Đăng nhập nhanh để demo</p>
-                            <div className="space-y-2">
-                                {QUICK_ROLES.map(({ label, role, email: e, icon: Icon, color }) => (
-                                    <button
-                                        key={role}
-                                        onClick={() => quickLogin(role)}
-                                        className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl border-2 text-sm font-medium transition-all hover:shadow-sm ${color}`}
-                                    >
-                                        <Icon size={16} />
-                                        <span>{label}</span>
-                                        <span className="ml-auto text-xs opacity-60 font-mono">{e}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
