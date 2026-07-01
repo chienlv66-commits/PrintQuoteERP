@@ -151,13 +151,13 @@ export default function CreateOrder() {
             
             // For multiple products, we'll join them or save the primary one. 
             // In a strict flat 19-column table, we typically join them into strings.
-            const joinedNames = products.map(p => p.name).join(' + ');
-            const joinedMaterials = products.map(p => p.material).join(' + ');
-            const joinedSizes = products.map(p => p.size).join(' + ');
+            const joinedNames = products.map(p => p.name).join('\n');
+            const joinedMaterials = products.map(p => p.material).join('\n');
+            const joinedSizes = products.map(p => p.size).join('\n');
             const totalQty = products.reduce((sum, p) => sum + (parseFloat(p.quantity) || 0), 0);
-            const joinedSpecs = products.map(p => p.specs).filter(Boolean).join(' | ');
-            const joinedProc = products.map(p => p.processing).filter(Boolean).join(' | ');
-            const joinedNotes = products.map(p => p.notes).filter(Boolean).join(' | ');
+            const joinedSpecs = products.map(p => p.specs).filter(Boolean).join('\n');
+            const joinedProc = products.map(p => p.processing).filter(Boolean).join('\n');
+            const joinedNotes = products.map(p => p.notes).filter(Boolean).join('\n');
             // Average unit price is tricky, so we leave it as 0 or the first one if there are multiple.
             const unitPriceRep = products.length === 1 ? products[0].unitPrice : 0;
 
