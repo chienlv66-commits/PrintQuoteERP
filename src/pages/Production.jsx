@@ -81,10 +81,10 @@ function FabricTab({ data, updateStatus, search }) {
                             <th className="px-4 py-3 border-r border-slate-100">Ngày trả hàng</th>
                             <th className="px-4 py-3 text-right border-r border-slate-100">Số lượng (cái)</th>
                             <th className="px-4 py-3 border-r border-slate-100">Chất liệu</th>
-                            <th className="px-4 py-3 text-right border-r border-slate-100">Chiều R (mm)</th>
-                            <th className="px-4 py-3 text-right border-r border-slate-100">Chiều D (mm)</th>
-                            <th className="px-4 py-3 text-right border-r border-slate-100">Khổ vải (mm)</th>
-                            <th className="px-4 py-3 text-right border-r border-slate-100">Khổe (mm)</th>
+                            <th className="px-4 py-3 text-right border-r border-slate-100">Rộng (mm)</th>
+                            <th className="px-4 py-3 text-right border-r border-slate-100">Dài (mm)</th>
+                            <th className="px-4 py-3 text-right border-r border-slate-100">Khổ Vải (mm)</th>
+                            <th className="px-4 py-3 text-right border-r border-slate-100">Số Mã</th>
                             <th className="px-4 py-3 text-right border-r border-slate-100">Số cuộn</th>
                             <th className="px-4 py-3 border-r border-slate-100">Gia công</th>
                             <th className="px-4 py-3 border-r border-slate-100">Phụ trách</th>
