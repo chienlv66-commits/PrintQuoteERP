@@ -60,13 +60,13 @@ export default function CreateOrder() {
                 quantity: pendingQuoteData.quantity || 1,
                 unitPrice: pendingQuoteData.unitPrice || 0,
                 specs: pendingQuoteData.inkColor ? `Mực: ${pendingQuoteData.inkColor}` : (pendingQuoteData.printColor ? `Cấu hình in: ${pendingQuoteData.printColor}` : ''),
-                processing: pendingQuoteData.cutFlag === 1 ? 'Cắt thành phẩm' : 'Giao nguyên cuộn',
+                processing: pendingQuoteData.processingType || (pendingQuoteData.cutFlag === 1 ? 'Cắt thành phẩm' : 'Giao nguyên cuộn'),
                 notes: pendingQuoteData.solidBackgroundFlag === 1 ? 'Có nền bệt' : '',
                 fabricWidth: pendingQuoteData.widthCm ? pendingQuoteData.widthCm * 10 : '',
                 fabricLength: pendingQuoteData.lengthMm || '',
                 fabricMaterialWidth: pendingQuoteData.widthCm ? pendingQuoteData.widthCm * 10 : '',
                 fabricCodeCount: pendingQuoteData.codeCount || '',
-                fabricRolls: '' // Let user fill manually or default empty
+                fabricRolls: pendingQuoteData.fabricRolls || ''
             }]);
             setShowAdvanced(true); // Auto expand if quote has advanced details
         }

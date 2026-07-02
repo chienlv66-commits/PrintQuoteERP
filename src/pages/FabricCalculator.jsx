@@ -5,13 +5,20 @@ import { useAppContext } from '../context/AppContext';
 import { calculateMacInQuote } from '../utils/fabricPricingEngine';
 import MAC_IN_DATA from '../data/fabricPricingData.json';
 
+const getRollLengthM = (material) => {
+    const name = String(material).toLowerCase();
+    if (name.includes('cotton') && !name.includes('lụa')) return 100;
+    if (name.includes('không biên')) return 180;
+    return 200;
+};
+
 const RibbonForm = ({ isAdmin, onCalculate }) => {
     const [widthCm, setWidthCm] = useState(MAC_IN_DATA.ribbonMaterialWidthsCm[0]);
     const [lengthMm, setLengthMm] = useState('');
     const [quantity, setQuantity] = useState('');
     const [materialCode, setMaterialCode] = useState(Object.keys(MAC_IN_DATA.ribbonMaterialRollPrices)[0]);
     const [inkColor, setInkColor] = useState(Object.keys(MAC_IN_DATA.inkPrices)[0]);
-    const [cutFlag, setCutFlag] = useState(1);
+    const [processingType, setProcessingType] = useState('Cắt rời');
     const [solidBackgroundFlag, setSolidBackgroundFlag] = useState(0);
     const [otherCost, setOtherCost] = useState(30000);
 
@@ -22,6 +29,11 @@ const RibbonForm = ({ isAdmin, onCalculate }) => {
         }
         
         try {
+            const cutFlag = processingType === 'Nguyên cuộn' ? 0 : 1;
+            const rollLengthM = getRollLengthM(materialCode);
+            const totalMeters = (parseFloat(lengthMm) * parseInt(quantity)) / 1000;
+            const fabricRolls = (totalMeters / rollLengthM).toFixed(1);
+
             const result = calculateMacInQuote({
                 productType: 'ribbon',
                 widthCm: parseFloat(widthCm),
@@ -35,7 +47,7 @@ const RibbonForm = ({ isAdmin, onCalculate }) => {
             });
             onCalculate({
                 ...result,
-                details: { widthCm, lengthMm, quantity, materialCode, inkColor, cutFlag, solidBackgroundFlag }
+                details: { widthCm, lengthMm, quantity, materialCode, inkColor, processingType, solidBackgroundFlag, fabricRolls }
             });
         } catch (e) {
             alert(e.message);
@@ -74,9 +86,11 @@ const RibbonForm = ({ isAdmin, onCalculate }) => {
                 </div>
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1">Quy cách giao</label>
-                    <select className="w-full p-2 border border-slate-200 rounded-lg outline-none focus:border-blue-500" value={cutFlag} onChange={e => setCutFlag(parseInt(e.target.value))}>
-                        <option value={1}>Cắt thành phẩm</option>
-                        <option value={0}>Giao nguyên cuộn</option>
+                    <select className="w-full p-2 border border-slate-200 rounded-lg outline-none focus:border-blue-500" value={processingType} onChange={e => setProcessingType(e.target.value)}>
+                        <option value="Cắt rời">Cắt rời</option>
+                        <option value="Gập giữa">Gập giữa</option>
+                        <option value="Gập 2 đầu">Gập 2 đầu</option>
+                        <option value="Nguyên cuộn">Nguyên cuộn</option>
                     </select>
                 </div>
                 <div>
@@ -108,7 +122,7 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
     const [materialCode, setMaterialCode] = useState('CB480 (Trắng)');
     const [printColor, setPrintColor] = useState(Object.keys(MAC_IN_DATA.printColors)[0]);
     const [codeCount, setCodeCount] = useState(1);
-    const [cutFlag, setCutFlag] = useState(1);
+    const [processingType, setProcessingType] = useState('Cắt rời');
     const [solidBackgroundFlag, setSolidBackgroundFlag] = useState(0);
     const [filmCost, setFilmCost] = useState(25000);
 
@@ -119,6 +133,11 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
         }
         
         try {
+            const cutFlag = processingType === 'Nguyên cuộn' ? 0 : 1;
+            const rollLengthM = getRollLengthM(materialCode);
+            const totalMeters = (parseFloat(lengthMm) * parseInt(quantity)) / 1000;
+            const fabricRolls = (totalMeters / rollLengthM).toFixed(1);
+
             const result = calculateMacInQuote({
                 productType: 'flexo',
                 materialGroup,
@@ -134,7 +153,7 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
             });
             onCalculate({
                 ...result,
-                details: { widthCm, lengthMm, quantity, materialCode, printColor, codeCount, cutFlag, solidBackgroundFlag, materialGroup }
+                details: { widthCm, lengthMm, quantity, materialCode, printColor, codeCount, processingType, solidBackgroundFlag, materialGroup, fabricRolls }
             });
         } catch (e) {
             alert(e.message);
@@ -184,9 +203,11 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
                 </div>
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1">Quy cách giao</label>
-                    <select className="w-full p-2 border border-slate-200 rounded-lg outline-none focus:border-blue-500" value={cutFlag} onChange={e => setCutFlag(parseInt(e.target.value))}>
-                        <option value={1}>Cắt thành phẩm</option>
-                        <option value={0}>Giao nguyên cuộn</option>
+                    <select className="w-full p-2 border border-slate-200 rounded-lg outline-none focus:border-blue-500" value={processingType} onChange={e => setProcessingType(e.target.value)}>
+                        <option value="Cắt rời">Cắt rời</option>
+                        <option value="Gập giữa">Gập giữa</option>
+                        <option value="Gập 2 đầu">Gập 2 đầu</option>
+                        <option value="Nguyên cuộn">Nguyên cuộn</option>
                     </select>
                 </div>
                 <div>
