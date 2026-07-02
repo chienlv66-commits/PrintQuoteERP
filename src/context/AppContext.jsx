@@ -31,7 +31,10 @@ export const AppProvider = ({ children }) => {
                 finalOrderData.address, finalOrderData.productName, finalOrderData.material,
                 finalOrderData.dimensions, finalOrderData.quantity, finalOrderData.unitPrice,
                 finalOrderData.totalPrice, finalOrderData.deposit, finalOrderData.remaining,
-                finalOrderData.specs, finalOrderData.processing, finalOrderData.notes, "Chờ duyệt"
+                finalOrderData.specs, finalOrderData.processing, finalOrderData.notes, "Chờ duyệt",
+                finalOrderData.fabricWidth || '', finalOrderData.fabricLength || '', 
+                finalOrderData.fabricMaterialWidth || '', finalOrderData.fabricCodeCount || '', 
+                finalOrderData.fabricRolls || ''
             ];
             await appendDataToSheet('Orders', rowArray);
             setPendingQuoteData(null); 

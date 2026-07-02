@@ -32,7 +32,10 @@ const RibbonForm = ({ isAdmin, onCalculate }) => {
                 solidBackgroundFlag,
                 otherCost: parseFloat(otherCost),
             });
-            onCalculate(result);
+            onCalculate({
+                ...result,
+                details: { widthCm, lengthMm, quantity, materialCode, inkColor, cutFlag, solidBackgroundFlag }
+            });
         } catch (e) {
             alert(e.message);
         }
@@ -128,7 +131,10 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
                 solidBackgroundFlag,
                 filmCost: parseFloat(filmCost),
             });
-            onCalculate(result);
+            onCalculate({
+                ...result,
+                details: { widthCm, lengthMm, quantity, materialCode, printColor, codeCount, cutFlag, solidBackgroundFlag, materialGroup }
+            });
         } catch (e) {
             alert(e.message);
         }
@@ -213,7 +219,8 @@ export default function FabricCalculator() {
         if (!result) return;
         setPendingQuoteData({
             productName: `Mác in vải (${mode === 'ribbon' ? 'Ribbon' : 'Flexo'})`,
-            unitPrice: Math.round(result.unitPrice)
+            unitPrice: Math.round(result.unitPrice),
+            ...result.details
         });
         window.location.href = '#/create-order';
     };

@@ -55,13 +55,18 @@ export default function CreateOrder() {
             setProducts([{
                 id: 1,
                 name: pendingQuoteData.productName || '',
-                material: pendingQuoteData.material || '',
-                size: pendingQuoteData.dimensions || '',
+                material: pendingQuoteData.materialCode || pendingQuoteData.material || '',
+                size: pendingQuoteData.lengthMm ? `${pendingQuoteData.widthCm * 10} x ${pendingQuoteData.lengthMm}` : '',
                 quantity: pendingQuoteData.quantity || 1,
                 unitPrice: pendingQuoteData.unitPrice || 0,
-                specs: pendingQuoteData.specs || '',
-                processing: pendingQuoteData.processing || '',
-                notes: ''
+                specs: pendingQuoteData.inkColor ? `Mực: ${pendingQuoteData.inkColor}` : (pendingQuoteData.printColor ? `Cấu hình in: ${pendingQuoteData.printColor}` : ''),
+                processing: pendingQuoteData.cutFlag === 1 ? 'Cắt thành phẩm' : 'Giao nguyên cuộn',
+                notes: pendingQuoteData.solidBackgroundFlag === 1 ? 'Có nền bệt' : '',
+                fabricWidth: pendingQuoteData.widthCm ? pendingQuoteData.widthCm * 10 : '',
+                fabricLength: pendingQuoteData.lengthMm || '',
+                fabricMaterialWidth: pendingQuoteData.widthCm ? pendingQuoteData.widthCm * 10 : '',
+                fabricCodeCount: pendingQuoteData.codeCount || '',
+                fabricRolls: '' // Let user fill manually or default empty
             }]);
             setShowAdvanced(true); // Auto expand if quote has advanced details
         }
@@ -177,7 +182,12 @@ export default function CreateOrder() {
                 remaining: remaining,
                 specs: joinedSpecs,
                 processing: joinedProc,
-                notes: joinedNotes
+                notes: joinedNotes,
+                fabricWidth: products.map(p => p.fabricWidth || '').join('\n'),
+                fabricLength: products.map(p => p.fabricLength || '').join('\n'),
+                fabricMaterialWidth: products.map(p => p.fabricMaterialWidth || '').join('\n'),
+                fabricCodeCount: products.map(p => p.fabricCodeCount || '').join('\n'),
+                fabricRolls: products.map(p => p.fabricRolls || '').join('\n')
             };
 
             const res = await saveOrderToSheet(finalOrderData);

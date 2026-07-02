@@ -103,13 +103,13 @@ function FabricTab({ data, updateStatus, search }) {
                                 <td className="px-4 py-3 border-r border-slate-50">
                                     <span className="text-xs px-2 py-0.5 rounded-md font-medium bg-slate-100 text-slate-600 whitespace-pre-wrap block max-w-[150px]">{row[8]}</span>
                                 </td>
-                                <td className="px-4 py-3 text-right border-r border-slate-50"></td>
-                                <td className="px-4 py-3 text-right border-r border-slate-50"></td>
-                                <td className="px-4 py-3 text-right border-r border-slate-50"></td>
-                                <td className="px-4 py-3 text-right font-medium text-blue-700 border-r border-slate-50"></td>
-                                <td className="px-4 py-3 text-right text-slate-600 border-r border-slate-50"></td>
+                                <td className="px-4 py-3 text-right border-r border-slate-50">{row[19]}</td>
+                                <td className="px-4 py-3 text-right border-r border-slate-50">{row[20]}</td>
+                                <td className="px-4 py-3 text-right border-r border-slate-50">{row[21]}</td>
+                                <td className="px-4 py-3 text-right font-medium text-blue-700 border-r border-slate-50">{row[22]}</td>
+                                <td className="px-4 py-3 text-right text-slate-600 border-r border-slate-50">{row[23]}</td>
                                 <td className="px-4 py-3 text-slate-600 whitespace-pre-wrap border-r border-slate-50 text-xs">{row[16]}</td>
-                                <td className="px-4 py-3 text-slate-600 border-r border-slate-50 text-xs"></td>
+                                <td className="px-4 py-3 text-slate-600 border-r border-slate-50 text-xs">-</td>
                                 <td className="px-4 py-3 text-slate-400 text-xs max-w-[150px] truncate border-r border-slate-50" title={row[17]}>{row[17]}</td>
                                 <td className="px-4 py-3 text-center">
                                     <StatusDropdown status={row[18]} statuses={FABRIC_STATUSES} onChange={val => updateStatus(row[0], val)} />
