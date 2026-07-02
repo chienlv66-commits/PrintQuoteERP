@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, Box, Layers, Tag, CreditCard, Sparkles, Droplet, Sun, Hash } from 'lucide-react';
+import { Calculator, Box, Layers, Tag, CreditCard, Sparkles, Droplet, Sun, Hash, Shirt } from 'lucide-react';
 
 export default function QuoteCalculator() {
     const CALCULATORS = [
+        {
+            title: 'Mác In Vải (Ribbon/Flexo)',
+            description: 'Công cụ tính giá Mác in Satin, Cotton, Vải Giấy (Chuyển nhiệt & Flexo cuộn).',
+            icon: Shirt,
+            color: 'text-indigo-600',
+            bg: 'bg-indigo-50',
+            border: 'border-indigo-200',
+            path: '/fabric-calculator'
+        },
         {
             title: 'In Offset & Nhanh (Card, Tờ Rơi)',
             description: 'Công cụ báo giá tổng hợp cho In Offset và In Nhanh (Card visit, Tờ rơi, Giấy các loại).',

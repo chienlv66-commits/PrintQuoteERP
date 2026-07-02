@@ -10,6 +10,7 @@ import Production from './pages/Production';
 import Finance from './pages/Finance';
 import AdminTestPricing from './pages/AdminTestPricing';
 import AdminExtraPricing from './pages/AdminExtraPricing';
+import FabricCalculator from './pages/FabricCalculator';
 
 // New placeholders
 import Customers from './pages/Customers';
@@ -36,6 +37,7 @@ function App() {
           <Route path="/orders" element={<ProtectedRoute allowedRoles={['admin','sale']}><Quotes /></ProtectedRoute>} />
           <Route path="/create-order" element={<ProtectedRoute allowedRoles={['admin','sale']}><CreateOrder /></ProtectedRoute>} />
           <Route path="/customers" element={<ProtectedRoute allowedRoles={['admin','sale']}><Customers /></ProtectedRoute>} />
+          <Route path="/fabric-calculator" element={<ProtectedRoute allowedRoles={['admin','sale']}><FabricCalculator /></ProtectedRoute>} />
           
           <Route path="/production" element={<ProtectedRoute allowedRoles={['admin','production']}><Production /></ProtectedRoute>} />
           <Route path="/inventory" element={<ProtectedRoute allowedRoles={['admin','production','accountant']}><Inventory /></ProtectedRoute>} />
