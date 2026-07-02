@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, ArrowRight, Save, Copy, Shirt } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { calculateMacInQuote } from '../utils/fabricPricingEngine';
 import MAC_IN_DATA from '../data/fabricPricingData.json';
@@ -210,6 +211,7 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
 };
 
 export default function FabricCalculator() {
+    const navigate = useNavigate();
     const { currentUser, transferQuoteToOrder } = useAppContext();
     const isAdmin = currentUser?.role === 'admin';
     const [mode, setMode] = useState('ribbon'); // 'ribbon' | 'flexo'
@@ -222,7 +224,7 @@ export default function FabricCalculator() {
             unitPrice: Math.round(result.unitPrice),
             ...result.details
         });
-        window.location.href = '#/create-order';
+        navigate('/create-order');
     };
 
     return (
