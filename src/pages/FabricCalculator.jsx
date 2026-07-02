@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, ArrowRight, Save, Copy } from 'lucide-react';
+import { Calculator, ArrowRight, Save, Copy, Shirt } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { calculateMacInQuote } from '../utils/fabricPricingEngine';
 import MAC_IN_DATA from '../data/fabricPricingData.json';
