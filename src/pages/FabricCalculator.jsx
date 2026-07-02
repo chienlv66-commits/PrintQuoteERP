@@ -210,14 +210,14 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
 };
 
 export default function FabricCalculator() {
-    const { currentUser, setPendingQuoteData } = useAppContext();
+    const { currentUser, transferQuoteToOrder } = useAppContext();
     const isAdmin = currentUser?.role === 'admin';
     const [mode, setMode] = useState('ribbon'); // 'ribbon' | 'flexo'
     const [result, setResult] = useState(null);
 
     const handleCreateOrder = () => {
         if (!result) return;
-        setPendingQuoteData({
+        transferQuoteToOrder({
             productName: `Mác in vải (${mode === 'ribbon' ? 'Ribbon' : 'Flexo'})`,
             unitPrice: Math.round(result.unitPrice),
             ...result.details

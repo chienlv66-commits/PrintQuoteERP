@@ -77,7 +77,7 @@ export const AppProvider = ({ children }) => {
 
     return (
         <AppContext.Provider value={{ 
-            currentUser, login, logout, pendingQuoteData, transferQuoteToOrder, 
+            currentUser, login, logout, pendingQuoteData, setPendingQuoteData, transferQuoteToOrder, 
             saveOrderToSheet, saveCustomerToSheet, saveTransactionToSheet 
         }}>
             {children}
