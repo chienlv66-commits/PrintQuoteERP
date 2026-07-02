@@ -32,7 +32,7 @@ const RibbonForm = ({ isAdmin, onCalculate }) => {
             const cutFlag = processingType === 'Nguyên cuộn' ? 0 : 1;
             const rollLengthM = getRollLengthM(materialCode);
             const totalMeters = (parseFloat(lengthMm) * parseInt(quantity)) / 1000;
-            const fabricRolls = (totalMeters / rollLengthM).toFixed(1);
+            const fabricRolls = (totalMeters / rollLengthM).toFixed(1) + ' cuộn';
 
             const result = calculateMacInQuote({
                 productType: 'ribbon',
@@ -136,7 +136,7 @@ const FlexoForm = ({ isAdmin, onCalculate }) => {
             const cutFlag = processingType === 'Nguyên cuộn' ? 0 : 1;
             const rollLengthM = getRollLengthM(materialCode);
             const totalMeters = (parseFloat(lengthMm) * parseInt(quantity)) / 1000;
-            const fabricRolls = (totalMeters / rollLengthM).toFixed(1);
+            const fabricRolls = (totalMeters / rollLengthM).toFixed(1) + ' cuộn';
 
             const result = calculateMacInQuote({
                 productType: 'flexo',

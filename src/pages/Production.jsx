@@ -27,6 +27,17 @@ const PAPER_STATUSES = [
     { value: 'Lỗi',         label: 'Lỗi / Cần xử lý', color: 'bg-red-100 text-red-700',   dot: '#ef4444' },
 ];
 
+const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        return d.toLocaleDateString('vi-VN');
+    } catch {
+        return dateStr;
+    }
+};
+
 function StatusDropdown({ status, statuses, onChange }) {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
@@ -98,7 +109,7 @@ function FabricTab({ data, updateStatus, search }) {
                             <tr key={row[0]} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
                                 <td className="px-4 py-3 font-medium text-slate-600 border-r border-slate-50">{row[0]}</td>
                                 <td className="px-4 py-3 font-semibold text-slate-800 whitespace-nowrap border-r border-slate-50">{row[4]}</td>
-                                <td className="px-4 py-3 text-slate-500 whitespace-nowrap border-r border-slate-50">{row[1]}</td>
+                                <td className="px-4 py-3 text-slate-500 whitespace-nowrap border-r border-slate-50">{formatDate(row[1])}</td>
                                 <td className="px-4 py-3 text-right font-medium border-r border-slate-50">{Number(row[10]).toLocaleString('vi-VN')}</td>
                                 <td className="px-4 py-3 border-r border-slate-50">
                                     <span className="text-xs px-2 py-0.5 rounded-md font-medium bg-slate-100 text-slate-600 whitespace-pre-wrap block max-w-[150px]">{row[8]}</span>
