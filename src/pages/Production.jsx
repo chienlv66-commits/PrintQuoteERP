@@ -207,14 +207,15 @@ export default function Production() {
         }
     };
 
-    const isFabric = (material = '') => {
-        const lower = material.toLowerCase();
-        return lower.includes('satin') || lower.includes('cotton') || lower.includes('vải giấy');
+    const isFabric = (material = '', productName = '') => {
+        const lowerMat = String(material).toLowerCase();
+        const lowerProd = String(productName).toLowerCase();
+        return lowerMat.includes('satin') || lowerMat.includes('cotton') || lowerMat.includes('vải giấy') || lowerMat.includes('vải') || lowerMat.includes('mác') || lowerProd.includes('mác') || lowerProd.includes('vải');
     };
 
     // Chỉ lấy những đơn chưa Hoàn tất hoặc mới Hoàn tất gần đây (hoặc lấy tất cả, hiện tại lấy tất cả)
-    const fabricOrders = orders.filter(o => isFabric(o[8]));
-    const paperOrders = orders.filter(o => !isFabric(o[8]));
+    const fabricOrders = orders.filter(o => isFabric(o[8], o[7]));
+    const paperOrders = orders.filter(o => !isFabric(o[8], o[7]));
 
     const TABS = [
         { id: 'fabric', label: 'In Vải / Mác', icon: Shirt, count: fabricOrders.length },
