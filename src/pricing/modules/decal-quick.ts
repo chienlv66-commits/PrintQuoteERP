@@ -17,9 +17,9 @@ export type DecalQuickInput = {
 };
 
 export type Material = {
-  code: string;
+  id: string;
   name?: string;
-  unitPrice: number; // Loại giấy column F. For Decal in Excel: 1.2796875
+  unitPriceM2?: number; // Loại giấy column F. For Decal in Excel: 1.2796875
 };
 
 export type PrintTier = {
@@ -74,7 +74,7 @@ function roundup(value: number): number {
 }
 
 function lookupMaterial(ctx: PricingContext, materialCode: string): Material {
-  const material = ctx.materials.find(m => m.code === materialCode || m.name === materialCode);
+  const material = ctx.materials.find(m => m.id === materialCode || m.name === materialCode);
   if (!material) throw new Error(`Material not found: ${materialCode}`);
   return material;
 }
@@ -147,8 +147,9 @@ export function calculateDecalQuick(input: DecalQuickInput, ctx: PricingContext)
 
   const printTier = findTierByLabelOrAuto(ctx, printPagesCut, input.printTierLabel);
   const printUnitPrice = printTier.value;
+  const materialUnitPrice = material.unitPriceM2 ?? 0;
 
-  const paperCostCut = (10 + roundup(input.quantity / itemsPerSheetCut)) * (material.unitPrice * 32.5 * 43) * 1.1;
+  const paperCostCut = (10 + roundup(input.quantity / itemsPerSheetCut)) * (materialUnitPrice * 32.5 * 43) * 1.1;
   const paperCostDiecut = paperCostCut * printPagesDiecut / printPagesCut;
 
   const printCostCut = printUnitPrice * printPagesCut;
@@ -167,8 +168,8 @@ export function calculateDecalQuick(input: DecalQuickInput, ctx: PricingContext)
   const diecutDivisor = (diecutTotal / (input.quantity * 0.6)) > 1_000_000 ? 0.6 : 0.55;
 
   const baseBreakdown = {
-    ma_vat_tu: material.code,
-    don_gia_vat_tu: material.unitPrice,
+    ma_vat_tu: material.id,
+    don_gia_vat_tu: materialUnitPrice,
     so_luong: input.quantity,
     chieu_dai_cm: input.lengthCm,
     chieu_rong_cm: input.widthCm,
