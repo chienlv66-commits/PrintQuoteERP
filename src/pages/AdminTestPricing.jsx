@@ -72,7 +72,7 @@ export default function AdminTestPricing() {
                     productType,
                     quantity: Number(quantity),
                     widthCm: Number(widthCm),
-                    heightCm: Number(heightCm),
+                    lengthCm: Number(heightCm),
                     materialCode: materialId,
                     sideCount: Number(sideCount),
                     laminateFlag: laminate ? 1 : 0,
