@@ -35,6 +35,12 @@ export function calculateTemCaoThanh1Mau(input: TemCaoThanh1MauInput) {
     unitPrice,
     sellTotal: total,
     sellUnit: unitPrice,
-    breakdown: { layout, itemsPerMeter, meters, rollUnitPrice, cutUnitPrice },
+    breakdown: {
+      phuong_an_ghep: layout,
+      so_tem_tren_met: itemsPerMeter,
+      so_met_in: meters,
+      don_gia_cuon: rollUnitPrice,
+      don_gia_cat_roi: cutUnitPrice
+    },
   };
 }

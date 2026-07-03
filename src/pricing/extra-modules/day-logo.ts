@@ -42,11 +42,11 @@ export function calculateDayLogo(input: DayLogoInput) {
     sellTotal: total,
     sellUnit: actualUnit,
     breakdown: {
-      selectedTierQty: billQty,
-      basePrice,
-      twoSideExtra: input.twoSides ? d.twoSideExtra : 0,
-      tierUnitPrice: unitPrice,
-      tierTotal: total
+      so_luong_tinh_gia: billQty,
+      gia_co_ban: basePrice,
+      phu_phi_hai_mat: input.twoSides ? d.twoSideExtra : 0,
+      don_gia_ap_dung: unitPrice,
+      tong_tien: total
     },
   };
 }

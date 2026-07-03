@@ -35,6 +35,13 @@ export function calculateTemPet(input: TemPetInput) {
     unitPrice,
     sellTotal: total,
     sellUnit: unitPrice,
-    breakdown: { layout, itemsPerMeter, meters, rollPricePerMeter: meterTier.rollPricePerMeter, rollTotal, cutTotal },
+    breakdown: {
+      phuong_an_ghep: layout,
+      so_tem_tren_met: itemsPerMeter,
+      so_met_in: meters,
+      don_gia_met_cuon: meterTier.rollPricePerMeter,
+      tong_tien_cuon: rollTotal,
+      tong_tien_cat_roi: cutTotal
+    },
   };
 }

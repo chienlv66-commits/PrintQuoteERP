@@ -32,6 +32,16 @@ export function calculateVoid(input: VoidInput) {
     unitPrice,
     sellTotal: total,
     sellUnit: unitPrice,
-    breakdown: { layout, itemsPerMeter, meters, tierFactor: tier.factor, materialCost, printDieCost, laminateCost, moldCost, secondColorFee },
+    breakdown: {
+      phuong_an_ghep: layout,
+      so_tem_tren_met: itemsPerMeter,
+      so_met_in: meters,
+      he_so_so_luong: tier.factor,
+      phi_vat_tu: materialCost,
+      phi_in_va_be: printDieCost,
+      phi_can_mang: laminateCost,
+      phi_khuon: moldCost,
+      phu_phi_mau_thu_2: secondColorFee
+    },
   };
 }

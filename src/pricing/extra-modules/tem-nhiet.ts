@@ -34,6 +34,13 @@ export function calculateTemNhiet(input: TemNhietInput) {
     unitPrice,
     sellTotal: total,
     sellUnit: unitPrice,
-    breakdown: { layout, sheetsForFilm, filmCost, plateCost, processingCost, baseUnit },
+    breakdown: {
+      phuong_an_ghep: layout,
+      so_to_in: sheetsForFilm,
+      phi_mang: filmCost,
+      phi_ban_in: plateCost,
+      phi_gia_cong: processingCost,
+      don_gia_co_ban: baseUnit
+    },
   };
 }

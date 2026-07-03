@@ -35,6 +35,15 @@ export function calculateMica(input: MicaInput) {
     unitPrice,
     sellTotal: totalCost / d.marginDivisor, // wait, formula says unitPrice = totalCost / (quantity * 0.6)
     sellUnit: unitPrice,
-    breakdown: { layout, itemsPerSheet, sheets, wasteSheets: d.wasteSheets, materialCost, printCost, cutCost, processingCost },
+    breakdown: {
+      phuong_an_ghep: layout,
+      so_tem_tren_to: itemsPerSheet,
+      so_to_in: sheets,
+      so_to_bu_hao: d.wasteSheets,
+      phi_vat_tu: materialCost,
+      phi_in: printCost,
+      phi_cat: cutCost,
+      phi_gia_cong: processingCost
+    },
   };
 }

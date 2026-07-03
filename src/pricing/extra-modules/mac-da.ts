@@ -31,6 +31,11 @@ export function calculateMacDa(input: MacDaInput) {
     unitPrice,
     sellTotal: total,
     sellUnit: unitPrice,
-    breakdown: { area, moldCost, baseUnit, tierFactor: tier.factor },
+    breakdown: {
+      dien_tich_cm2: area,
+      phi_khuon: moldCost,
+      don_gia_co_ban: baseUnit,
+      he_so_so_luong: tier.factor
+    },
   };
 }
