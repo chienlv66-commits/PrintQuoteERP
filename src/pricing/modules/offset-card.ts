@@ -361,8 +361,8 @@ export function _calculateOffsetCard(input: OffsetCardInput, ctx?: any) {
     input,
     ...costBlock,
     breakdown: {
-      format,
-      quantity: input.quantity,
+      kho_in: format,
+      so_luong: input.quantity,
       ...costBlock.breakdown
     }
   };

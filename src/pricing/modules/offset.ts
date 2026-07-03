@@ -55,21 +55,21 @@ export function calculateOffset(input: OffsetInput, ctx: PricingContext): QuoteR
     const drillingCost = input.drill ? Math.max(input.quantity * 10, 100_000) : 0;
 
     const base = {
-      materialName: material.name,
-      sheetSize: `${s.sheetW}x${s.sheetH}`,
-      layoutSize: `${s.layoutW}x${s.layoutH}`,
-      itemsPerSheet,
-      orientation: layout.orientation,
-      sheets,
-      marginTierLabel: tier.label,
-      marginFactor: tier.value,
-      divisor,
-      paperCost,
-      plateCost,
-      printCost,
-      laminationCost,
-      cuttingCost,
-      drillingCost,
+      ten_vat_tu: material.name,
+      kho_giay: `${s.sheetW}x${s.sheetH}`,
+      kho_in: `${s.layoutW}x${s.layoutH}`,
+      so_tem_tren_to: itemsPerSheet,
+      phuong_an_ghep: layout.orientation,
+      so_to_in: sheets,
+      moc_loi_nhuan: tier.label,
+      he_so_loi_nhuan: tier.value,
+      he_so_chia: divisor,
+      phi_giay: paperCost,
+      phi_ban_kem: plateCost,
+      phi_in: printCost,
+      phi_can_mang: laminationCost,
+      phi_xen: cuttingCost,
+      phi_khoan: drillingCost,
     };
 
     const add = (method: string, costTotal: number, extra: Record<string, number | string | boolean | null> = {}) => {
@@ -85,22 +85,22 @@ export function calculateOffset(input: OffsetInput, ctx: PricingContext): QuoteR
 
     add('cut', paperCost + plateCost + printCost + laminationCost + cuttingCost + drillingCost);
     const diecutCost = Math.max((input.quantity / itemsPerSheet) * s.dieRate, 250_000);
-    add('diecut', paperCost + plateCost + printCost + laminationCost + s.moldFee + diecutCost + drillingCost, { moldFee: s.moldFee, diecutCost });
+    add('diecut', paperCost + plateCost + printCost + laminationCost + s.moldFee + diecutCost + drillingCost, { phi_khuon: s.moldFee, phi_be_khuon: diecutCost });
 
     const mountingCost = Math.max((input.quantity / itemsPerSheet) * s.sheetW * s.sheetH * 0.2, 200_000);
-    add('mount_cut', paperCost * 2 + plateCost + printCost + laminationCost + mountingCost + cuttingCost + drillingCost, { mountingCost });
-    add('mount_diecut', paperCost * 2 + plateCost + printCost + laminationCost + mountingCost + s.moldFee + diecutCost + drillingCost, { mountingCost, moldFee: s.moldFee, diecutCost });
+    add('mount_cut', paperCost * 2 + plateCost + printCost + laminationCost + mountingCost + cuttingCost + drillingCost, { phi_boi: mountingCost });
+    add('mount_diecut', paperCost * 2 + plateCost + printCost + laminationCost + mountingCost + s.moldFee + diecutCost + drillingCost, { phi_boi: mountingCost, phi_khuon: s.moldFee, phi_be_khuon: diecutCost });
 
     const foilUnit = input.quantity > 20_000 ? (700_000 + input.quantity * 42) / input.quantity : (700_000 + input.quantity * 65) / input.quantity;
-    add('foil', paperCost + plateCost + printCost + laminationCost + cuttingCost + drillingCost + foilUnit * input.quantity, { foilUnit });
+    add('foil', paperCost + plateCost + printCost + laminationCost + cuttingCost + drillingCost + foilUnit * input.quantity, { don_gia_ep_kim: foilUnit });
 
     const embossUnit = input.quantity / itemsPerSheet * 200 < 250_000
       ? 1_100_000 / input.quantity
       : (1_150_000 + input.quantity / itemsPerSheet * 200) / input.quantity;
-    add('emboss', paperCost + plateCost + printCost + laminationCost + cuttingCost + drillingCost + embossUnit * input.quantity, { embossUnit });
+    add('emboss', paperCost + plateCost + printCost + laminationCost + cuttingCost + drillingCost + embossUnit * input.quantity, { don_gia_thuc_noi: embossUnit });
 
     const uvSpotUnit = input.quantity > 13_600 ? 70 : 950_000 / input.quantity;
-    add('uv_spot', paperCost + plateCost + printCost + laminationCost + cuttingCost + drillingCost + uvSpotUnit * input.quantity, { uvSpotUnit });
+    add('uv_spot', paperCost + plateCost + printCost + laminationCost + cuttingCost + drillingCost + uvSpotUnit * input.quantity, { don_gia_phu_uv: uvSpotUnit });
   }
 
   const filtered = input.finishingType && input.finishingType !== 'auto'

@@ -68,18 +68,18 @@ export function calculateQuickPaper(input: QuickPaperInput, ctx: PricingContext)
   const drillingCost = input.drill ? Math.max(input.quantity * drillPricePerItem, drillMin) : 0;
 
   const baseBreakdown = {
-    materialName: material.name,
-    itemsPerSheet,
-    orientation: layout.orientation,
-    sheets,
-    printPages,
-    printTierLabel: printTier.label,
-    paperCost,
-    printCost,
-    laminationCost,
-    cuttingCost,
-    drillingCost,
-    marginDivisor,
+    ten_vat_tu: material.name,
+    so_tem_tren_to: itemsPerSheet,
+    phuong_an_ghep: layout.orientation,
+    so_to_in: sheets,
+    so_trang_in: printPages,
+    moc_so_luong_in: printTier.label,
+    phi_giay: paperCost,
+    phi_in: printCost,
+    phi_can_mang: laminationCost,
+    phi_xen: cuttingCost,
+    phi_khoan: drillingCost,
+    he_so_bien_loi_nhuan: marginDivisor,
   };
 
   const alternatives: QuoteAlternative[] = [];
@@ -97,17 +97,17 @@ export function calculateQuickPaper(input: QuickPaperInput, ctx: PricingContext)
   add('cut', paperCost + printCost + laminationCost + cuttingCost + drillingCost);
 
   const laserDiecutCost = Math.max((input.quantity / itemsPerSheet) * laserDiecutPerSheet, laserDiecutMin);
-  add('laser_diecut', paperCost + printCost + laminationCost + laserDiecutCost, { laserDiecutCost });
+  add('laser_diecut', paperCost + printCost + laminationCost + laserDiecutCost, { phi_be_laze: laserDiecutCost });
 
   const moldDiecutCost = Math.max((input.quantity / itemsPerSheet) * moldDiecutPerSheet, moldDiecutMin);
-  add('mold_diecut', paperCost + printCost + laminationCost + cuttingCost + drillingCost + moldFee + moldDiecutCost, { moldFee, moldDiecutCost });
+  add('mold_diecut', paperCost + printCost + laminationCost + cuttingCost + drillingCost + moldFee + moldDiecutCost, { phi_khuon: moldFee, phi_be_khuon: moldDiecutCost });
 
   const secondPaperCost = paperCost;
   const mountingCost = Math.max((input.quantity / itemsPerSheet) * quickPaperSheetWidth * quickPaperSheetHeight * mountingRate, mountingMin);
   
-  add('mount_cut', paperCost + printCost + laminationCost + cuttingCost + drillingCost + secondPaperCost + mountScoreFixed + mountingCost, { mountingCost, mountScoreCost: mountScoreFixed, secondPaperCost });
+  add('mount_cut', paperCost + printCost + laminationCost + cuttingCost + drillingCost + secondPaperCost + mountScoreFixed + mountingCost, { phi_boi: mountingCost, phi_can_boi: mountScoreFixed, phi_giay_lop_2: secondPaperCost });
 
-  add('mount_diecut', paperCost + printCost + laminationCost + moldFee + moldDiecutCost + secondPaperCost + mountScoreFixed + mountingCost, { mountingCost, mountScoreCost: mountScoreFixed, moldFee, moldDiecutCost, secondPaperCost });
+  add('mount_diecut', paperCost + printCost + laminationCost + moldFee + moldDiecutCost + secondPaperCost + mountScoreFixed + mountingCost, { phi_boi: mountingCost, phi_can_boi: mountScoreFixed, phi_khuon: moldFee, phi_be_khuon: moldDiecutCost, phi_giay_lop_2: secondPaperCost });
 
   const filtered = input.finishingType && input.finishingType !== 'auto'
     ? alternatives.filter(a => a.method === input.finishingType)
