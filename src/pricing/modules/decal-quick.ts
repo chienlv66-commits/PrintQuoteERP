@@ -4,6 +4,8 @@
  * Goal: match Excel logic, not Giấy In Nhanh logic.
  */
 
+import type { Material, PricingContext, QuoteAlternative, QuoteResult } from '../types';
+
 export type DecalQuickInput = {
   quantity: number;          // Excel C2
   lengthCm: number;          // Excel C3 - Dài
@@ -16,39 +18,11 @@ export type DecalQuickInput = {
   finishingType?: 'auto' | 'square_cut' | 'diecut';
 };
 
-export type Material = {
-  id: string;
-  name?: string;
-  unitPriceM2?: number; // Loại giấy column F. For Decal in Excel: 1.2796875
-};
-
 export type PrintTier = {
   label: string;
   min?: number;
   max?: number;
   value: number;
-};
-
-export type PricingContext = {
-  materials: Material[];
-  quickPrintTiers: PrintTier[];
-};
-
-export type QuoteAlternative = {
-  key: 'square_cut' | 'diecut';
-  label: string;
-  factoryUnitPrice: number;
-  sellingUnitPrice: number;
-  totalFactoryCost: number;
-  totalSellingPrice: number;
-  breakdown: Record<string, number | string>;
-};
-
-export type DecalQuickResult = {
-  productType: 'decal_quick';
-  selected: QuoteAlternative;
-  alternatives: QuoteAlternative[];
-  breakdown: Record<string, number | string>;
 };
 
 const DEFAULT_PRINT_TIERS: PrintTier[] = [
@@ -80,7 +54,7 @@ function lookupMaterial(ctx: PricingContext, materialCode: string): Material {
 }
 
 function findTierByLabelOrAuto(ctx: PricingContext, printPages: number, label?: string): PrintTier {
-  const tiers = ctx.quickPrintTiers?.length ? ctx.quickPrintTiers : DEFAULT_PRINT_TIERS;
+  const tiers = (ctx.quantityTiers?.length ? ctx.quantityTiers : DEFAULT_PRINT_TIERS) as any;
   if (label) {
     const byLabel = tiers.find(t => t.label === label);
     if (!byLabel) throw new Error(`Print tier label not found: ${label}`);
@@ -120,17 +94,16 @@ function makeAlternative(
   const factoryUnitPrice = totalCost / quantity;
   const sellingUnitPrice = totalCost / (quantity * divisor);
   return {
-    key,
-    label,
-    factoryUnitPrice,
-    sellingUnitPrice,
-    totalFactoryCost: totalCost,
-    totalSellingPrice: sellingUnitPrice * quantity,
+    method: label, // We use label as method so it shows up beautifully in UI
+    costTotal: totalCost,
+    costUnit: factoryUnitPrice,
+    sellUnit: sellingUnitPrice,
+    sellTotal: sellingUnitPrice * quantity,
     breakdown,
   };
 }
 
-export function calculateDecalQuick(input: DecalQuickInput, ctx: PricingContext): DecalQuickResult {
+export function calculateDecalQuick(input: DecalQuickInput, ctx: PricingContext): QuoteResult {
   assertPositive('quantity', input.quantity);
   assertPositive('lengthCm', input.lengthCm);
   assertPositive('widthCm', input.widthCm);
@@ -227,7 +200,11 @@ export function calculateDecalQuick(input: DecalQuickInput, ctx: PricingContext)
 
   return {
     productType: 'decal_quick',
-    selected: selectedAlt,
+    selectedMethod: selectedAlt.method,
+    costTotal: selectedAlt.costTotal,
+    costUnit: selectedAlt.costUnit,
+    sellTotal: selectedAlt.sellTotal,
+    sellUnit: selectedAlt.sellUnit,
     alternatives,
     breakdown: selectedAlt.breakdown,
   };

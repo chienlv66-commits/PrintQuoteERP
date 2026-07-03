@@ -2,7 +2,7 @@ export type ProductType =
   | 'quick_paper'
   | 'offset'
   | 'offset_card'
-  | 'quick_decal'
+  | 'decal_quick'
   | 'void'
   | 'mica'
   | 'mac_da'
