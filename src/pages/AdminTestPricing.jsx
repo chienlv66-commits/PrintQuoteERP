@@ -67,6 +67,19 @@ export default function AdminTestPricing() {
                     finishingType,
                     printPageTierLabel: printPageTierLabel || undefined
                 };
+            } else if (productType === 'decal_quick') {
+                payload = {
+                    productType,
+                    quantity: Number(quantity),
+                    widthCm: Number(widthCm),
+                    heightCm: Number(heightCm),
+                    materialCode: materialId,
+                    sideCount: Number(sideCount),
+                    laminateFlag: laminate ? 1 : 0,
+                    cutFlag: cut ? 1 : 0,
+                    finishingType,
+                    printTierLabel: printPageTierLabel || undefined
+                };
             } else if (productType === 'offset_card') {
                 payload = {
                     productType,
@@ -100,7 +113,7 @@ export default function AdminTestPricing() {
     const handleTransferToOrder = () => {
         if (!result) return;
         const quoteData = {
-            productName: productType === 'quick_paper' ? 'In Nhanh' : 'In Offset',
+            productName: productType === 'quick_paper' ? 'In Nhanh' : productType === 'decal_quick' ? 'Decal In Nhanh' : 'In Offset',
             material: materialId,
             dimensions: `${widthCm}x${heightCm}cm`,
             quantity: Number(quantity),
@@ -144,6 +157,7 @@ export default function AdminTestPricing() {
                             <div><label className="label">Loại SP</label>
                                 <select className="inp" value={productType} onChange={e => setProductType(e.target.value)}>
                                     <option value="quick_paper">In Nhanh</option>
+                                    <option value="decal_quick">Decal In Nhanh</option>
                                     <option value="offset_card">In Offset (Thẻ bài)</option>
                                 </select>
                             </div>
@@ -166,7 +180,7 @@ export default function AdminTestPricing() {
                             </select>
                         </div>
 
-                        {productType === 'quick_paper' ? (
+                        {productType === 'quick_paper' || productType === 'decal_quick' ? (
                             <>
                                 <div className="grid grid-cols-2 gap-3">
                                     <div><label className="label">Số mặt in</label>
@@ -176,14 +190,22 @@ export default function AdminTestPricing() {
                                         </select>
                                     </div>
                                     <div><label className="label">Finishing Type</label>
-                                        <select className="inp" value={finishingType} onChange={e => setFinishingType(e.target.value)}>
-                                            <option value="auto">Auto (Chọn rẻ nhất)</option>
-                                            <option value="cut">Xén</option>
-                                            <option value="laser_diecut">Bế Laze (In nhanh)</option>
-                                            <option value="mold_diecut">Bế khuôn</option>
-                                            <option value="mount_cut">Bồi Xén</option>
-                                            <option value="mount_diecut">Bồi Bế</option>
-                                        </select>
+                                        {productType === 'decal_quick' ? (
+                                            <select className="inp" value={finishingType} onChange={e => setFinishingType(e.target.value)}>
+                                                <option value="auto">Auto (Chọn rẻ nhất)</option>
+                                                <option value="square_cut">Xén</option>
+                                                <option value="diecut">Bế</option>
+                                            </select>
+                                        ) : (
+                                            <select className="inp" value={finishingType} onChange={e => setFinishingType(e.target.value)}>
+                                                <option value="auto">Auto (Chọn rẻ nhất)</option>
+                                                <option value="cut">Xén</option>
+                                                <option value="laser_diecut">Bế Laze (In nhanh)</option>
+                                                <option value="mold_diecut">Bế khuôn</option>
+                                                <option value="mount_cut">Bồi Xén</option>
+                                                <option value="mount_diecut">Bồi Bế</option>
+                                            </select>
+                                        )}
                                     </div>
                                 </div>
 
@@ -194,9 +216,11 @@ export default function AdminTestPricing() {
                                     <label className="flex items-center gap-1.5 font-semibold text-slate-700 text-sm">
                                         <input type="checkbox" className="chk" checked={cut} onChange={e => setCut(e.target.checked)}/> Xén vuông
                                     </label>
-                                    <label className="flex items-center gap-1.5 font-semibold text-slate-700 text-sm">
-                                        <input type="checkbox" className="chk" checked={drill} onChange={e => setDrill(e.target.checked)}/> Khoan lỗ
-                                    </label>
+                                    {productType === 'quick_paper' && (
+                                        <label className="flex items-center gap-1.5 font-semibold text-slate-700 text-sm">
+                                            <input type="checkbox" className="chk" checked={drill} onChange={e => setDrill(e.target.checked)}/> Khoan lỗ
+                                        </label>
+                                    )}
                                 </div>
 
                                 <div><label className="label">Tier Trang In (Ghi đè thủ công)</label>

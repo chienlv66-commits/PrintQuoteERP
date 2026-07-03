@@ -2,6 +2,7 @@ import type { CustomerQuoteResult, PricingContext, ProductType, QuoteResult } fr
 import { calculateQuickPaper, type QuickPaperInput } from './modules/quick-paper';
 import { calculateOffset, type OffsetInput } from './modules/offset';
 import { calculateOffsetCard, type OffsetCardInput } from './modules/offset-card';
+import { calculateDecalQuick, type DecalQuickInput } from './modules/decal-quick';
 import {
   calculateVoid, type VoidInput,
   calculateMica, type MicaInput,
@@ -15,6 +16,7 @@ import {
 
 export type CalculateQuoteInput =
   | ({ productType: 'quick_paper' } & QuickPaperInput)
+  | ({ productType: 'decal_quick' } & DecalQuickInput)
   | ({ productType: 'offset' } & OffsetInput)
   | ({ productType: 'offset_card' } & OffsetCardInput)
   | ({ productType: 'void' } & VoidInput)
@@ -30,6 +32,7 @@ export function calculateQuote(input: CalculateQuoteInput, ctx: PricingContext):
   let result: any;
   switch (input.productType) {
     case 'quick_paper': result = calculateQuickPaper(input, ctx); break;
+    case 'decal_quick': result = calculateDecalQuick(input, ctx); break;
     case 'offset': result = calculateOffset(input, ctx); break;
     case 'offset_card': result = calculateOffsetCard(input, ctx); break;
     case 'void': result = calculateVoid(input); break;

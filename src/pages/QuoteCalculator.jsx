@@ -15,7 +15,7 @@ export default function QuoteCalculator() {
         },
         {
             title: 'In Offset & Nhanh (Card, Tờ Rơi)',
-            description: 'Công cụ báo giá tổng hợp cho In Offset và In Nhanh (Card visit, Tờ rơi, Giấy các loại).',
+            description: 'Công cụ báo giá tổng hợp cho In Offset và In Nhanh (Card visit, Tờ rơi, Decal in nhanh, Giấy các loại).',
             icon: Layers,
             color: 'text-blue-500',
             bg: 'bg-blue-50',
