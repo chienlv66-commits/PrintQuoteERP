@@ -20,7 +20,7 @@ export default function CreateOrder() {
     const [copied, setCopied] = useState(false);
 
     const [customerInfo, setCustomerInfo] = useState({
-        type: 'Công ty',
+        type: 'cong_ty',
         name: '',
         phone: '',
         address: ''
@@ -36,11 +36,24 @@ export default function CreateOrder() {
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const res = await getDataFromSheet('Customers');
+                // Fetch from Orders to get complete info (name, phone, address, type)
+                const res = await getDataFromSheet('Orders');
                 if (res.status === 'success' && res.data) {
-                    // Map to array of objects [Name, TotalSpent, Debt, ... Phone is not in the list explicitly but usually Name/Phone is stored. Wait, Customers table columns: Tên KH, Tổng Chi Tiêu, Công Nợ... We will just use the name for search, and assume Phone might be in the Name or Address, or we just suggest by Name]
-                    // Actually, let's keep it simple. We store the raw rows.
-                    setCustomers(res.data);
+                    const customerMap = {};
+                    res.data.forEach(order => {
+                        const [, , , type, cusName, phone, addr] = order;
+                        const name = (cusName || '').trim();
+                        if (!name) return;
+                        if (!customerMap[name]) {
+                            customerMap[name] = {
+                                name,
+                                phone: phone || '',
+                                type: type || 'ca_nhan',
+                                address: addr || ''
+                            };
+                        }
+                    });
+                    setCustomers(Object.values(customerMap));
                 }
             } catch (err) {
                 console.log("Could not fetch customers for autocomplete", err);
@@ -76,13 +89,15 @@ export default function CreateOrder() {
         const { name, value } = e.target;
         setCustomerInfo(prev => ({ ...prev, [name]: value }));
 
-        // Auto-complete logic for name or phone
-        if (name === 'name' || name === 'phone') {
+        // Auto-complete logic for name, phone, or address
+        if (name === 'name' || name === 'phone' || name === 'address') {
             if (value.length > 1) {
                 const query = value.toLowerCase();
-                const matches = customers.filter(row => {
-                    const rowName = String(row[0] || '').toLowerCase(); // Tên KH
-                    return rowName.includes(query);
+                const matches = customers.filter(c => {
+                    const cName = String(c.name || '').toLowerCase();
+                    const cPhone = String(c.phone || '').toLowerCase();
+                    const cAddr = String(c.address || '').toLowerCase();
+                    return cName.includes(query) || cPhone.includes(query) || cAddr.includes(query);
                 }).slice(0, 5); // top 5
                 setSuggestions(matches);
             } else {
@@ -91,12 +106,13 @@ export default function CreateOrder() {
         }
     };
 
-    const applySuggestion = (row) => {
+    const applySuggestion = (c) => {
         setCustomerInfo({
             ...customerInfo,
-            name: row[0] || '', // Tên KH
-            type: row[6] || 'Cá nhân', // Phân loại (Cột 7)
-            // Assuming phone/address might not be perfectly mapped in Customers sheet, we leave them as is or map if we know. We'll map what we have.
+            name: c.name || '',
+            phone: c.phone || '',
+            address: c.address || '',
+            type: c.type || 'ca_nhan',
         });
         setSuggestions([]);
     };
@@ -260,9 +276,9 @@ export default function CreateOrder() {
                     <div>
                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Loại khách hàng</label>
                         <select name="type" value={customerInfo.type} onChange={handleCustomerChange} className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-blue-500">
-                            <option>Công ty</option>
-                            <option>Cá nhân</option>
-                            <option>Khách sỉ</option>
+                            <option value="ca_nhan">Cá nhân</option>
+                            <option value="cong_ty">Công ty</option>
+                            <option value="khach_si">Khách sỉ</option>
                         </select>
                     </div>
                     <div className="relative">
@@ -276,8 +292,8 @@ export default function CreateOrder() {
                             <div className="absolute z-10 w-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl overflow-hidden">
                                 {suggestions.map((s, i) => (
                                     <div key={i} onClick={() => applySuggestion(s)} className="p-3 hover:bg-blue-50 cursor-pointer border-b last:border-b-0">
-                                        <p className="font-bold text-slate-800">{s[0]}</p>
-                                        <p className="text-xs text-slate-500">Loại: {s[6]} - Đã chi: {s[1]}</p>
+                                        <p className="font-bold text-slate-800">{s.name}</p>
+                                        <p className="text-xs text-slate-500">Loại: {s.type === 'ca_nhan' ? 'Cá nhân' : s.type === 'cong_ty' ? 'Công ty' : 'Khách sỉ'} {s.phone ? `- SĐT: ${s.phone}` : ''}</p>
                                     </div>
                                 ))}
                             </div>
