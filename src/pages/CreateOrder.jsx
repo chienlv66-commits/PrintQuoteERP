@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { appendDataToSheet, getDataFromSheet } from '../services/api';
-import { Save, Plus, Trash2, FileText, Settings2, Copy, CheckCircle, Search } from 'lucide-react';
+import { Save, Plus, Trash2, FileText, Settings2, Copy, CheckCircle, Search, Factory } from 'lucide-react';
+import SupplierExpenseFields from '../components/SupplierExpenseFields';
+import {
+    createEmptySupplierEntry,
+    computeSupplierEntryTotal,
+    buildSupplierTransactionRow,
+    parseSuppliersFromTransactions,
+} from '../utils/supplierHelpers';
 
 export default function CreateOrder() {
     const navigate = useNavigate();
@@ -12,6 +19,7 @@ export default function CreateOrder() {
     const [error, setError] = useState('');
     const [customers, setCustomers] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
+    const [savedSuppliers, setSavedSuppliers] = useState([]);
     
     // UI states
     const [showAdvanced, setShowAdvanced] = useState(false);
@@ -30,36 +38,45 @@ export default function CreateOrder() {
         { id: 1, name: '', material: '', size: '', quantity: 1, unitPrice: 0, specs: '', processing: '', notes: '' }
     ]);
 
+    const [supplierEntries, setSupplierEntries] = useState([]);
+
     const [deposit, setDeposit] = useState(0);
 
-    // Fetch Customers for Auto-Complete
+    // Fetch Customers & Suppliers for Auto-Complete
     useEffect(() => {
-        const fetchCustomers = async () => {
+        const fetchAutocompleteData = async () => {
             try {
-                // Fetch from Orders to get complete info (name, phone, address, type)
-                const res = await getDataFromSheet('Orders');
-                if (res.status === 'success' && res.data) {
+                const [ordersRes, transRes] = await Promise.allSettled([
+                    getDataFromSheet('Orders'),
+                    getDataFromSheet('Transactions'),
+                ]);
+
+                if (ordersRes.status === 'fulfilled' && ordersRes.value?.status === 'success' && ordersRes.value.data) {
                     const customerMap = {};
-                    res.data.forEach(order => {
+                    ordersRes.value.data.forEach(order => {
                         const [, , , type, cusName, phone, addr] = order;
-                        const name = (cusName || '').trim();
+                        const name = String(cusName ?? '').trim();
                         if (!name) return;
                         if (!customerMap[name]) {
                             customerMap[name] = {
                                 name,
-                                phone: phone || '',
+                                phone: String(phone ?? ''),
                                 type: type || 'ca_nhan',
-                                address: addr || ''
+                                address: String(addr ?? '')
                             };
                         }
                     });
                     setCustomers(Object.values(customerMap));
                 }
+
+                if (transRes.status === 'fulfilled' && transRes.value?.status === 'success' && transRes.value.data) {
+                    setSavedSuppliers(parseSuppliersFromTransactions(transRes.value.data));
+                }
             } catch (err) {
-                console.log("Could not fetch customers for autocomplete", err);
+                console.log("Could not fetch data for autocomplete", err);
             }
         };
-        fetchCustomers();
+        fetchAutocompleteData();
     }, []);
 
     // Handle incoming quote data
@@ -131,8 +148,25 @@ export default function CreateOrder() {
         }
     };
 
+    const addSupplierEntry = () => {
+        setSupplierEntries(prev => [...prev, createEmptySupplierEntry()]);
+    };
+
+    const updateSupplierEntry = (id, nextEntry) => {
+        setSupplierEntries(prev => prev.map(item => (item.id === id ? nextEntry : item)));
+    };
+
+    const removeSupplierEntry = (id) => {
+        setSupplierEntries(prev => prev.filter(item => item.id !== id));
+    };
+
     const totalOrderValue = products.reduce((sum, p) => sum + ((parseFloat(p.quantity) || 0) * (parseFloat(p.unitPrice) || 0)), 0);
     const remaining = totalOrderValue - deposit;
+    const totalSupplierCost = supplierEntries.reduce((sum, entry) => {
+        const hasSupplierData = Boolean(String(entry.name ?? '').trim() || Number(entry.unitPrice) > 0);
+        return sum + (hasSupplierData ? computeSupplierEntryTotal(entry) : 0);
+    }, 0);
+    const estimatedGrossProfit = totalOrderValue - totalSupplierCost;
 
     const generateZaloText = (orderId, customer, prods, total, dep, rem) => {
         let text = `*BÁO GIÁ IN ẤN*\nMã ĐH: ${orderId}\nKhách hàng: ${customer.name || 'Khách lẻ'}\nSĐT: ${customer.phone || 'Không có'}\nĐịa chỉ: ${customer.address || 'Không có'}\n-------------------------\n`;
@@ -163,6 +197,23 @@ export default function CreateOrder() {
             setError('Vui lòng điền đầy đủ Tên khách hàng và thông tin sản phẩm (có đánh dấu *)');
             return;
         }
+
+        const hasPartiallyFilledSupplier = supplierEntries.some(entry => {
+            const hasName = Boolean(String(entry.name ?? '').trim());
+            const hasOtherDetails = Boolean(
+                String(entry.productName ?? '').trim() ||
+                Number(entry.unitPrice) > 0 ||
+                Number(entry.paidAmount) > 0 ||
+                String(entry.note ?? '').trim()
+            );
+            return !hasName && hasOtherDetails;
+        });
+        if (hasPartiallyFilledSupplier) {
+            setError('Vui lòng nhập Tên Nhà CC cho mục Nhà cung cấp đã mở, hoặc bấm nút xóa mục đó nếu không sử dụng.');
+            return;
+        }
+
+        const validSuppliers = supplierEntries.filter(entry => Boolean(String(entry.name ?? '').trim()));
 
         setIsLoading(true);
         setError('');
@@ -227,6 +278,16 @@ export default function CreateOrder() {
                     await appendDataToSheet('Transactions', transRow);
                 } catch (e) {
                     console.log("Could not auto-sync transaction", e);
+                }
+            }
+
+            // Auto-sync: Push linked supplier expenses sequentially to Transactions sheet
+            for (const entry of validSuppliers) {
+                try {
+                    const supplierRow = buildSupplierTransactionRow(entry, orderId);
+                    await appendDataToSheet('Transactions', supplierRow);
+                } catch (e) {
+                    console.log("Could not auto-sync supplier expense", e);
                 }
             }
             
@@ -376,14 +437,59 @@ export default function CreateOrder() {
                 ))}
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
                 <button onClick={addProduct} className="bg-slate-800 text-white px-5 py-2.5 rounded-xl hover:bg-slate-900 font-bold flex items-center gap-2 transition-colors">
                     <Plus size={18} /> Thêm Sản Phẩm
                 </button>
                 <button onClick={() => setShowAdvanced(!showAdvanced)} className={`border px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-colors ${showAdvanced ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'}`}>
                     <Settings2 size={18} /> Cấu Hình Nâng Cao
                 </button>
+                <button onClick={addSupplierEntry} className="bg-amber-600 text-white px-5 py-2.5 rounded-xl hover:bg-amber-700 font-bold flex items-center gap-2 transition-colors shadow-sm">
+                    <Factory size={18} /> Thêm Nhà Cung Cấp
+                </button>
             </div>
+
+            {supplierEntries.length > 0 && (
+                <div className="space-y-4 animate-in fade-in duration-200">
+                    {supplierEntries.map((entry, idx) => (
+                        <div key={entry.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 border-l-4 border-l-amber-500">
+                            <div className="flex flex-wrap items-center justify-between gap-2 mb-5">
+                                <div className="flex items-center gap-2.5">
+                                    <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                                        <Factory size={18} className="text-amber-600" /> Nhà cung cấp #{idx + 1}
+                                    </h3>
+                                    <span className="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                        Tự động gắn mã đơn khi lưu
+                                    </span>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => removeSupplierEntry(entry.id)}
+                                    title="Xóa mục nhà cung cấp này"
+                                    className="text-red-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
+                                >
+                                    <Trash2 size={18} />
+                                </button>
+                            </div>
+                            <SupplierExpenseFields
+                                value={entry}
+                                onChange={(next) => updateSupplierEntry(entry.id, next)}
+                                suppliers={savedSuppliers}
+                                showOrderLink={false}
+                            />
+                        </div>
+                    ))}
+                    <div className="flex justify-start">
+                        <button
+                            type="button"
+                            onClick={addSupplierEntry}
+                            className="bg-amber-50 border border-amber-300 text-amber-800 px-4 py-2 rounded-xl hover:bg-amber-100 font-bold text-sm flex items-center gap-2 transition-colors"
+                        >
+                            <Plus size={16} /> Thêm NCC khác cho đơn này
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <div className="bg-slate-800 rounded-2xl p-6 text-white shadow-xl lg:w-1/2 ml-auto">
                 <div className="flex justify-between items-center mb-3">
@@ -406,6 +512,20 @@ export default function CreateOrder() {
                     <span className="font-bold text-lg">CÒN LẠI:</span>
                     <span className="text-xl font-black text-orange-400">{remaining.toLocaleString()} đ</span>
                 </div>
+                {supplierEntries.length > 0 && (
+                    <div className="mt-4 pt-3 border-t border-dashed border-slate-700 space-y-1.5 text-sm">
+                        <div className="flex justify-between items-center text-slate-300">
+                            <span>Tổng chi NCC (tham khảo):</span>
+                            <span className="font-bold text-amber-300">{totalSupplierCost.toLocaleString('vi-VN')} đ</span>
+                        </div>
+                        <div className="flex justify-between items-center text-slate-300">
+                            <span>Lãi gộp tạm tính:</span>
+                            <span className={`font-bold ${estimatedGrossProfit >= 0 ? 'text-emerald-300' : 'text-red-400'}`}>
+                                {estimatedGrossProfit.toLocaleString('vi-VN')} đ
+                            </span>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Zalo Modal */}
