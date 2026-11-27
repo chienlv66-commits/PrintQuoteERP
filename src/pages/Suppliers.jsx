@@ -73,12 +73,12 @@ export default function Suppliers() {
                     const typeRaw = row[2] ? row[2].toString().toLowerCase() : '';
                     if (!typeRaw.includes('chi') && !typeRaw.includes('expense')) return;
 
-                    const name = (row[4] || '').trim();
+                    const name = String(row[4] ?? '').trim();
                     if (!name) return;
 
-                    const phone = row[5] || '';
-                    const address = row[6] || '';
-                    const cat = row[3] || 'Khác';
+                    const phone = String(row[5] ?? '').trim();
+                    const address = String(row[6] ?? '').trim();
+                    const cat = String(row[3] ?? '').trim() || 'Khác';
                     const totalVal = Number(row[10]) || 0; // Thành tiền
                     const paidVal = Number(row[11]) || 0; // Đã TT
                     const debtVal = Number(row[12]) || 0; // Còn lại
@@ -92,7 +92,7 @@ export default function Suppliers() {
                             totalBought: 0,
                             totalPaid: 0,
                             totalDebt: 0,
-                            lastTransDate: row[1] || ''
+                            lastTransDate: String(row[1] ?? '')
                         };
                     }
 
@@ -101,7 +101,7 @@ export default function Suppliers() {
                     suppMap[name].totalDebt += debtVal;
                     
                     if (new Date(row[1]) > new Date(suppMap[name].lastTransDate)) {
-                        suppMap[name].lastTransDate = row[1];
+                        suppMap[name].lastTransDate = String(row[1] ?? '');
                     }
                     
                     // Cập nhật thông tin mới nhất nếu có
@@ -144,25 +144,26 @@ export default function Suppliers() {
     const categoryOptions = useMemo(() => {
         const set = new Set(DEFAULT_CATEGORIES);
         suppliers.forEach(s => {
-            if (s.category && s.category.trim()) set.add(s.category.trim());
+            const catStr = String(s.category ?? '').trim();
+            if (catStr) set.add(catStr);
         });
         return Array.from(set);
     }, [suppliers]);
 
     const filteredCategories = useMemo(() => {
-        const q = formData.category.trim().toLowerCase();
+        const q = String(formData.category ?? '').trim().toLowerCase();
         if (!q || categoryOptions.some(c => c.toLowerCase() === q)) return categoryOptions;
         const matches = categoryOptions.filter(c => c.toLowerCase().includes(q));
         return matches.length > 0 ? matches : categoryOptions;
     }, [categoryOptions, formData.category]);
 
     const supplierSuggestions = useMemo(() => {
-        const q = formData.name.trim().toLowerCase();
+        const q = String(formData.name ?? '').trim().toLowerCase();
         if (!q) return suppliers.slice(0, 6);
         return suppliers
             .filter(s =>
-                s.name.toLowerCase().includes(q) ||
-                (s.phone || '').toLowerCase().includes(q)
+                String(s.name ?? '').toLowerCase().includes(q) ||
+                String(s.phone ?? '').toLowerCase().includes(q)
             )
             .slice(0, 6);
     }, [suppliers, formData.name]);
@@ -205,10 +206,10 @@ export default function Suppliers() {
     const handleSelectSupplier = (sup) => {
         setFormData(prev => ({
             ...prev,
-            name: sup.name,
-            category: sup.category || prev.category,
-            phone: sup.phone || '',
-            address: sup.address || '',
+            name: String(sup.name ?? ''),
+            category: String(sup.category ?? '').trim() || prev.category,
+            phone: String(sup.phone ?? ''),
+            address: String(sup.address ?? ''),
         }));
         setShowSupplierSuggestions(false);
     };
@@ -286,8 +287,8 @@ export default function Suppliers() {
     };
 
     const filtered = suppliers.filter(s => 
-        s.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        s.category.toLowerCase().includes(searchTerm.toLowerCase())
+        String(s.name ?? '').toLowerCase().includes(searchTerm.toLowerCase()) || 
+        String(s.category ?? '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const totalNCC = suppliers.length;
