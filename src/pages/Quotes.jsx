@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FileText, Search, Edit, Trash2, X, CheckCircle, Download } from 'lucide-react';
 import { getDataFromSheet, updateDataInSheet, deleteDataInSheet } from '../services/api';
 import { exportToCSV } from '../utils/csvExport';
+import { formatMultiLineNumber } from '../utils/formatters';
 
 export default function Quotes() {
     const navigate = useNavigate();
@@ -192,10 +193,10 @@ export default function Quotes() {
                                             <div className="text-xs text-slate-500 mt-1">{phone} • {type}</div>
                                         </td>
                                         <td className="p-4">
-                                            <div className="font-bold text-slate-700 truncate max-w-[200px]">{prodName}</div>
-                                            <div className="text-xs text-slate-500 mt-1 truncate max-w-[200px]">{spec || mat || dim}</div>
+                                            <div className="font-bold text-slate-700 whitespace-pre-line max-w-[200px]">{prodName}</div>
+                                            <div className="text-xs text-slate-500 mt-1 whitespace-pre-line max-w-[200px]">{spec || mat || dim}</div>
                                         </td>
-                                        <td className="p-4 text-center font-semibold text-slate-700">{Number(qty).toLocaleString()}</td>
+                                        <td className="p-4 text-center font-semibold text-slate-700 whitespace-pre-line">{formatMultiLineNumber(qty)}</td>
                                         <td className="p-4 text-right font-semibold text-slate-700">{Number(total).toLocaleString()} đ</td>
                                         <td className="p-4 text-right font-bold text-red-500">{Number(remain).toLocaleString()} đ</td>
                                         <td className="p-4">

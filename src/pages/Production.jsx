@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Factory, Printer, Shirt, Check, ChevronDown, RefreshCw } from 'lucide-react';
 import { getDataFromSheet, updateDataInSheet } from '../services/api';
+import { formatMultiLineNumber } from '../utils/formatters';
 
 // ==================== STATUS DEFINITIONS ====================
 const FABRIC_STATUSES = [
@@ -110,7 +111,7 @@ function FabricTab({ data, updateStatus, search }) {
                                 <td className="px-4 py-3 font-medium text-slate-600 border-r border-slate-50">{row[0]}</td>
                                 <td className="px-4 py-3 font-semibold text-slate-800 whitespace-nowrap border-r border-slate-50">{row[4]}</td>
                                 <td className="px-4 py-3 text-slate-500 whitespace-nowrap border-r border-slate-50">{formatDate(row[1])}</td>
-                                <td className="px-4 py-3 text-right font-medium border-r border-slate-50">{Number(row[10]).toLocaleString('vi-VN')}</td>
+                                <td className="px-4 py-3 text-right font-medium whitespace-pre-line border-r border-slate-50">{formatMultiLineNumber(row[10])}</td>
                                 <td className="px-4 py-3 border-r border-slate-50">
                                     <span className="text-xs px-2 py-0.5 rounded-md font-medium bg-slate-100 text-slate-600 whitespace-pre-wrap block max-w-[150px]">{row[8]}</span>
                                 </td>
@@ -163,7 +164,7 @@ function PaperTab({ data, updateStatus, search }) {
                                 <td className="px-4 py-3 text-slate-700 whitespace-pre-wrap max-w-[200px] border-r border-slate-50">{row[7]}</td>
                                 <td className="px-4 py-3 text-slate-600 whitespace-pre-wrap border-r border-slate-50"><span className="text-xs px-2 py-0.5 rounded-md font-medium bg-slate-100 text-slate-600">{row[8]}</span></td>
                                 <td className="px-4 py-3 text-slate-600 whitespace-pre-wrap border-r border-slate-50">{row[9]}</td>
-                                <td className="px-4 py-3 text-right font-medium border-r border-slate-50">{Number(row[10]).toLocaleString('vi-VN')}</td>
+                                <td className="px-4 py-3 text-right font-medium whitespace-pre-line border-r border-slate-50">{formatMultiLineNumber(row[10])}</td>
                                 <td className="px-4 py-3 text-slate-600 whitespace-pre-wrap border-r border-slate-50 text-xs">{(row[15] + '\n' + row[16]).trim()}</td>
                                 <td className="px-4 py-3 text-slate-400 text-xs max-w-[150px] truncate border-r border-slate-50" title={row[17]}>{row[17]}</td>
                                 <td className="px-4 py-3 text-center">

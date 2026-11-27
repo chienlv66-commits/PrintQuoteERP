@@ -170,17 +170,20 @@ export default function CreateOrder() {
         try {
             const orderId = `ORD-${Math.floor(Math.random() * 100000)}`;
             
-            // For multiple products, we'll join them or save the primary one. 
-            // In a strict flat 19-column table, we typically join them into strings.
+            // For multiple products in 1 row, store newline-aligned values per product in quantity & unitPrice
             const joinedNames = products.map(p => p.name).join('\n');
             const joinedMaterials = products.map(p => p.material).join('\n');
             const joinedSizes = products.map(p => p.size).join('\n');
             const totalQty = products.reduce((sum, p) => sum + (parseFloat(p.quantity) || 0), 0);
+            const joinedQuantities = products.length === 1
+                ? (parseFloat(products[0].quantity) || 0)
+                : products.map(p => parseFloat(p.quantity) || 0).join('\n');
+            const joinedUnitPrices = products.length === 1
+                ? (parseFloat(products[0].unitPrice) || 0)
+                : products.map(p => parseFloat(p.unitPrice) || 0).join('\n');
             const joinedSpecs = products.map(p => p.specs).filter(Boolean).join('\n');
             const joinedProc = products.map(p => p.processing).filter(Boolean).join('\n');
             const joinedNotes = products.map(p => p.notes).filter(Boolean).join('\n');
-            // Average unit price is tricky, so we leave it as 0 or the first one if there are multiple.
-            const unitPriceRep = products.length === 1 ? products[0].unitPrice : 0;
 
             const finalOrderData = {
                 orderId,
@@ -191,8 +194,8 @@ export default function CreateOrder() {
                 productName: joinedNames,
                 material: joinedMaterials,
                 dimensions: joinedSizes,
-                quantity: totalQty,
-                unitPrice: unitPriceRep,
+                quantity: joinedQuantities,
+                unitPrice: joinedUnitPrices,
                 totalPrice: totalOrderValue,
                 deposit: deposit,
                 remaining: remaining,
